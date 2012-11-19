@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116014112) do
+ActiveRecord::Schema.define(:version => 20121119044426) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20121116014112) do
     t.string   "aws_secret_access_key"
     t.string   "aws_key_name"
     t.text     "github_deploy_key"
+    t.text     "deploy_key"
   end
 
   create_table "server_configurations", :force => true do |t|
