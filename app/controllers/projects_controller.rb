@@ -10,11 +10,10 @@ class ProjectsController < ApplicationController
 
   def show
     if Rails.configuration.demo_enabled
-      @project = Project.find(params[:id])
       render :json => {
-        :id => @project.id,
-        :name => @project.name,
-        :output => { :key => 1, :value => "http://dashboard.#{@project.name}.zerobot.io" },
+        :id => 1,
+        :name => 'YOWDemo',
+        :output => { :key => 1, :value => "http://dashboard.yowdemo.zerobot.io" },
         :status => 'CREATE_COMPLETE'
       }
     else
@@ -25,12 +24,9 @@ class ProjectsController < ApplicationController
 
   def create
     if Rails.configuration.demo_enabled
-      Project.skip_callback(:create, :after, :assign_deploy_key, :assign_github_deploy_key, :launch_dashboard, :launch_ci)
-      project = Project.create(:name => params[:project][:name])
-
       render :json => {
-        :id => project.id,
-        :name => project.name
+        :id => 1,
+        :name => 'YOWDemo'
       }
     else
       github_private = params[:project][:github_private] ? true : false
