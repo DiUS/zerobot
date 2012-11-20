@@ -5,13 +5,13 @@ define([
     return Backbone.Model.extend({
 
         url: function () {
-            return 'http://ci.' + projectName + '.dupondi.us:8080/job/' + this.get('displayName') + '/lastSuccessfulBuild/api/json';
+            return 'http://ci.' + projectName + '.zerobot.io:8080/job/' + this.get('displayName') + '/lastSuccessfulBuild/api/json';
         },
 
-        sync: function(method, model, options) {  
-            options.dataType = 'jsonp';  
+        sync: function(method, model, options) {
+            options.dataType = 'jsonp';
             options.jsonp = 'jsonp';
-            return Backbone.sync(method, model, options);  
+            return Backbone.sync(method, model, options);
         }
     });
 });
