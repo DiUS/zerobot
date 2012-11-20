@@ -299,7 +299,6 @@
           "mkdir -p /home/deployer/.ssh\n",
           "curl https://s3.amazonaws.com/dupondius_config/", { "Ref" : "ProjectName" }, ".pub >> /home/deployer/.ssh/authorized_keys\n",
           "chown -R deployer:deployer /home/deployer\n",
-          "chmod 600 /home/deployer/.ssh/", { "Ref" : "ProjectName" }, ".pub\n",
 
           "# Give the deployer permission to /opt\n",
           "chown root:www /opt\n",

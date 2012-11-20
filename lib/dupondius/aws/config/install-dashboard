@@ -28,7 +28,7 @@ project_github_user=$3
 source /etc/default/app
 
 dashboard_name=$PROJECT_NAME
-dashboard_git_repo="git@github.com:nadnerb/dashboard.git"
+dashboard_git_repo="https://github.com/DiUS/zerobot.git"
 
 # Create a database
 export DB_NAME
