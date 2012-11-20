@@ -70,16 +70,8 @@ module Dashboard
     # Launchpad component can be enabled by a setting in the environment
     config.launchpad_enabled = ENV['LAUNCHPAD_ENABLED'] && ENV['LAUNCHPAD_ENABLED'].downcase == 'true' ? true : false
 
-    # AWS integration can be enabled by a setting in the environment
-    # You may want to disable AWS integration to prevent resource from being
-    # created and thus costing money.
-    config.aws_enabled = ENV['AWS_ENABLED'] && ENV['AWS_ENABLED'].downcase == 'true' ? true : false
-
-    # To run the launchpad jobs for creating and pushing the project
-    config.launchpad_jobs = ENV['LAUNCHPAD_JOBS'] && ENV['LAUNCHPAD_JOBS'].downcase == 'true' ? true : false
-
     # Demo mode
-    config.demo_enabled = ENV['DEMO_ENABLED'] && ENV['DEMO_ENABLED'].downcase == 'true' ? true : false    
+    config.demo_enabled = ENV['DEMO_ENABLED'] && ENV['DEMO_ENABLED'].downcase == 'true' ? true : false
 
   end
 end

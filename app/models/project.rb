@@ -8,20 +8,17 @@ class Project < ActiveRecord::Base
   after_create :assign_deploy_key, :assign_github_deploy_key, :launch_dashboard, :launch_ci
 
   def launch_dashboard
-    if Rails.configuration.aws_enabled
-      user = Source::Commands.new(token).user['login']
-      Dupondius::Aws::CloudFormation::Dashboard.new(self.name, self.tech_stack,
-                                                    self.region, user.to_s, {
-          InstanceType: 'm1.small',
-          DBName: 'dashboard',
-          DBUsername: 'dashboard',
-          DBPassword: 'dashboard',
-          DBRootPassword: 'r00tr00t',
-          AwsAccessKey: self.aws_access_key,
-          AwsSecretAccessKey: self.aws_secret_access_key,
-          KeyName: self.aws_key_name
-      }).create
-    end
+    Dupondius::Aws::CloudFormation::Dashboard.new(self.name, self.tech_stack,
+                                                  self.region, self.github_account, {
+        InstanceType: 'm1.small',
+        DBName: 'dashboard',
+        DBUsername: 'dashboard',
+        DBPassword: 'dashboard',
+        DBRootPassword: 'r00tr00t',
+        AwsAccessKey: self.aws_access_key,
+        AwsSecretAccessKey: self.aws_secret_access_key,
+        KeyName: self.aws_key_name
+    }).create
   end
 
   def dashboard
