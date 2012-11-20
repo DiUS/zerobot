@@ -33,24 +33,6 @@
   font-size: 32px !important;
 }
 
-.dupon {
-  font-family: Planer-Regular;
-  font-weight: normal;
-  font-style: normal;
-  text-transform: none;
-  padding-right: 1px;
-  text-shadow: none;
-}
-
-.dius {
-  font-family: Planer-DemiBold;
-  font-weight: normal;
-  font-style: normal;
-  text-transform: none;
-  color: #d80b17;
-  text-shadow: none;
-}
-
 html, body {
   position: relative;
   width: 100%;
@@ -70,24 +52,34 @@ html, body, input, h1, button {
 }
 
 p.main-logo {
-  padding-top: 40px;
-  line-height: 80px;
+  width: 630px;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+p.main-logo img {
+  height: 100px;
 }
 
 .dupondius-image {
-  background-image: url("dupondius-mascot.png");
   float: right;
   height: 352px;
-  width: 442px;
-  margin-left: 20px;
-  margin-right:10px;
+  width: 360px;
 }
 
 .dupondius-blurb {
+  width: 630px;
   text-align: left;
   color: #424242;
   font-size: 18px;
-  padding-left: 20px;
+}
+
+.dupondius-blurb.right {
+  text-align: right;
+}
+
+.dupondius-blurb.right .btn {
+  margin-right: 30px;
 }
 
 .btn-dupondius {
@@ -107,8 +99,24 @@ p.main-logo {
   -webkit-font-smoothing: antialiased;
 }
 
+.welcome { 
+  background: url('/assets/logo/zerobot_robot_semi.png') no-repeat;
+  background-position: 800px 0;
+}
+
+.welcome .page-container {
+  background: none !important;
+  width: auto !important;
+  left: 130px;
+}
+
+.welcome .page-container:before, .welcome  .page-container:after {
+  height: 0 !important;
+}
+
 .home-main {
   height: 515px;
+  padding-left: 30px;
 }
 
 h1 {

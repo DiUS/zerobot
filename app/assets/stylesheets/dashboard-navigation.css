@@ -22,11 +22,20 @@
 .brand {
 	text-transform: uppercase;
 	font-size: 32px !important;
+}
+
+.project-brand {
 	padding: 25px 25px 12px 25px !important;
 }
 
 .brand span {
 	float: left;
+}
+
+.brand img {
+	padding-top: 12px;
+    height: 40px;
+    opacity: 0.95;
 }
 
 @media (max-width: 979px) {
