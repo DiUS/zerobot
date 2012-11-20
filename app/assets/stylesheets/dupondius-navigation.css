@@ -22,7 +22,7 @@
 .brand img {
     padding-top: 12px;
     height: 40px;
-    opacity: 0.95;
+    opacity: 0.9;
 }
 
 @media (max-width: 767px) {

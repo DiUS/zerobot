@@ -24,6 +24,10 @@
 	font-size: 32px !important;
 }
 
+.navbar .brand {
+	color: #E9E9E9 !important;
+}
+
 .project-brand {
 	padding: 25px 25px 12px 25px !important;
 }
@@ -35,7 +39,7 @@
 .brand img {
 	padding-top: 12px;
     height: 40px;
-    opacity: 0.95;
+    opacity: 0.9;
 }
 
 @media (max-width: 979px) {
@@ -67,10 +71,11 @@
 	background: none !important;
 	position: absolute;
 	bottom: 5px;
+	color: #ddd;
 }
 
 .navbar .nav li a:hover {
-	color: #999;
+	color: #ddd;
 }
 
 .navbar-inner .nav li {
