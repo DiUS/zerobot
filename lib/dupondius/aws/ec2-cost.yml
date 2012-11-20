@@ -201,3 +201,31 @@ sa-east-1:
     cc1.4xlarge: NA
     cc2.8xlarge: NA
     cg1.4xlarge: NA
+sa-east-2:
+  linux:
+    t1.micro: '0.027'
+    m1.small: '0.115'
+    m1.medium: '0.23'
+    c1.medium: '0.23'
+    m1.large: '0.46'
+    m2.xlarge: '0.68'
+    m1.xlarge: '0.92'
+    c1.xlarge: '0.92'
+    m2.2xlarge: '1.36'
+    m2.4xlarge: '2.72'
+    cc1.4xlarge: NA
+    cc2.8xlarge: NA
+    cg1.4xlarge: NA
+  windows:
+    t1.micro: '0.037'
+    m1.small: '0.30'
+    c1.medium: '0.35'
+    m1.large: '0.60'
+    m2.xlarge: '0.80'
+    m1.xlarge: '1.20'
+    c1.xlarge: '1.40'
+    m2.2xlarge: '1.60'
+    m2.4xlarge: '3.20'
+    cc1.4xlarge: NA
+    cc2.8xlarge: NA
+    cg1.4xlarge: NA

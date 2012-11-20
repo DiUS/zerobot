@@ -16,6 +16,7 @@ define([
             'us-west-2': 'US West (Oregon)',
             'eu-west-1': 'EU West (Ireland)',
             'ap-southeast-1': 'Asia Pacific (Singapore)',
+            'ap-southeast-2': 'Asia Pacific (Sydney)',
             'ap-northeast-1': 'Asia Pacific (Tokyo)',
             'sa-east-1': 'South Amercia (Sao Paulo)'
         },
@@ -40,7 +41,7 @@ define([
                 this.renderEnvironments();
             });
         },
-        
+
         postRender: function () {
             var view = new WidgetView({
                  heading: 'Environments - ' + this.regions[awsRegion],
@@ -67,7 +68,7 @@ define([
                 if (view.model.has('name')) { // needs to be created?
                     view.renderCreateEnvironment().fadeIn();
                 } else {
-                    view.renderEnvironment().fadeIn(); 
+                    view.renderEnvironment().fadeIn();
                 }
             }, this);
         },
@@ -95,10 +96,10 @@ define([
                 return; // foreign instance that we dont care about
             }
 
-            if (view.model.has('name')) { 
+            if (view.model.has('name')) {
                 view.availableModel = view.model;
                 view.model = environment;
-            } 
+            }
 
             if (view.instancesCollection === undefined) {
                 view.instancesCollection = new InstancesCollection();
