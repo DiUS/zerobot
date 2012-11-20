@@ -201,7 +201,7 @@ sa-east-1:
     cc1.4xlarge: NA
     cc2.8xlarge: NA
     cg1.4xlarge: NA
-sa-east-2:
+ap-southeast-2:
   linux:
     t1.micro: '0.027'
     m1.small: '0.115'
