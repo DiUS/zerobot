@@ -1,0 +1,157 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title Zerobot - Launchpad
+    / Le HTML5 shim, for IE6-8 support of HTML elements
+    /[if lt IE 9]
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+
+    / Le styles
+    %meta{name:"viewport", content:"width=device-width, initial-scale=1.0"}
+    =stylesheet_link_tag "application", :media => "all"
+    =javascript_include_tag "application"
+    =csrf_meta_tags
+  %body
+
+  =render "shared/empty_nav"
+
+  %div.steps
+    %div#page1{:class=> "page", 'data-step' => "true",  'data-submit' => "page-one-done",  'data-next' => "github-details",  'data-navigation' => "nav-application-name"}
+      %div.page-container
+        - unless session[:token]
+          %h1 Github Authorisation
+          %p Welcome to the Launchpad!
+          %p &nbsp;
+          %p In order to get the application up and running quickly, first we need to authorise access to your github account.
+          %p When we have this access, we can create and push your new app directly to your github account and from here deploy all the way to production using the customisable dupondi.us continuous delivery solution.
+          %a.btn.btn-success.btn-xlarge{:href=> "/source/new"}
+            %i.icon-arrow-right.icon-white Authorise me please
+        - else
+          %h1 Github Authorised
+          %p
+            Great, you have successfully authorised via github. You are logged in as
+            %strong
+              =session[:github_user]
+          %p &nbsp;
+          %p Now please type in the name of the application so we can get started.
+          %p
+            %input#application-name.input-xxlarge{ :type=> "text", :placeholder=> "Enter the name of the application" }
+            %input#application-token{:type=> "hidden", :value=> session[:token]}
+            %input#github-account{ :type=> "hidden", :value=> session[:github_user]}
+          %p
+            %a#page-one-done.btn.btn-success.btn-xlarge{:href => '#'}
+              %i.icon-arrow-down.icon-white Get Started
+          %b
+            %a{:href => "/source/new"}
+              REAUTHORISE ME PLEASE, I WANT TO USE A DIFFERENT GITHUB ACCOUNT
+          %p (You will need to log out of your github account first)
+
+      %div#github-details.page.hidden{'data-step' => "true", 'data-submit' => "github-details-done", 'data-next' => "aws-details"}
+        %div.page-container
+          %h1 Github repository
+          %p From here you will be able to define your application, specifiying the exact technology and environments you want along the way.
+          %p &nbsp;
+          %p When we have finished here at the launchpad, your Github repository will be found here.
+          %p &nbsp;
+          %p.url
+            https://github.com/
+            =session[:github_user]
+            %b.url .git
+          %p &nbsp;
+          %p Dont worry about needing to remember this URL, you will be able to grab it later.
+          %p
+            %a#github-details-done.btn.btn-primary.btn-xlarge{:href => "#"}
+              %i.icon-arrow-down.icon-white Awesome, lets continue!
+      %div#aws-details.page.hidden{'data-step' => "true",  'data-submit' => "aws-done", 'data-next' => "page2", 'data-navigation' => "nav-application-aws"}
+        %div.page-container
+          %h1 AWS Authorisation
+          %p &nbsp;
+          %p
+            We also need to get your aws credentials that you want to create the new environment under.
+            You can
+            %strong
+              leave them empty
+            to use the default ones.
+          %form
+            %div.controls.controls-row
+              %input#aws-access-key-id.input-xlarge.span3{:type=>"text", :placeholder=>"Enter your aws access key id"}
+              %input#aws-secret-access-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws secret access key"}
+              %input#aws-private-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws private key name"}
+          %p
+            %a#aws-done.btn.btn-primary.btn-xlarge{:href => '#'}
+              %i.icon-arrow-right.icon-white Next step
+      %div#page2.page.hidden{'data-step' => "true",  'data-submit' => "page-two-done", 'data-next' => "region", 'data-navigation' => "nav-application-stack"}
+        %div.page-container
+          %h1 Select the technology stack for the application
+          %p
+            Select the your primary technology stack to use for the application. This cannot be undone once the environments have been created.
+          %div#tech-stack.selectable-grid
+            %div.selectable-grid-row
+              %div.selectable-grid-column
+                %img{:src=>"/assets/rails_trans.png"}
+                %span Ruby on Rails
+              %div.selectable-grid-column
+                %img{:src=>"/assets/grails.png"}
+                %span Grails
+              %div.selectable-grid-column{'data-disabled' => 'true'}
+                %img{:src=>"/assets/java_trans.png"}
+                %span Java
+                %div.claim Coming Soon
+              %div.selectable-grid-column{'data-disabled' => 'true'}
+                %img{:src=>"/assets/ios.png"}
+                %span iOS
+                %div.claim Coming Soon
+            %p
+              %a#page-two-done.btn.btn-primary.btn-xlarge
+                %i.icon-arrow-down.icon-white Nice choice, keep going!
+      %div#region.page.hidden{'data-step' => "true",  'data-submit' => "region-selected", 'data-next' => "summary", 'data-navigation' => "nav-region-selected"}
+        %div.page-container
+          %h1 Select the AWS region for the application<
+          %p
+            Select an AWS region which meets your needs in terms of cost and availability
+          %div
+            %select#aws-region.span6
+              %option{:value=>"us-east-1",  :selected=>"selected"} US East (Virginia)
+              %option{:value=>"us-west-1"}US West (North California)
+              %option{:value=>"us-west-2"}US West (Oregon)
+              %option{:value=>"eu-west-1"}EU West (Ireland)
+              %option{:value=>"ap-southeast-1"}Asia Pacific (Singapore)
+              %option{:value=>"ap-southeast-2"}Asia Pacific (Sydney)
+              %option{:value=>"ap-northeast-1"}Asia Pacific (Tokyo)
+              %option{:value=>"sa-east-1"}South Amercia (Sao Paulo)
+          %p
+            %a#region-selected.btn.btn-primary.btn-xlarge{:href=>'#'}
+              %i.icon-arrow-down.icon-white Good! But before we start creating stuff...
+
+      %div#summary.page.hidden{'data-step' => "true",  'data-submit' => "summary-done", 'data-next' => "waiting"}
+        %div.page-container
+          %h1 Summary of your selections
+          %p
+            Please review the following information. You may go back and change any selections if you wish to.
+
+          %dl.dl-horizontal.summary
+            %dt Application Name:
+            %dd#summary-application-name
+
+            %dt AWS Account:
+            %dd#summary-aws-account
+
+            %dt Technology Stack
+            %dd#summary-technology-stack
+
+            %dt AWS Region
+            %dd#summary-aws-region
+          %p Initially a brand new dashboard for your app will be created. From there you will be able to configure your environments further.
+
+          %p
+            %a#summary-done.btn.btn-success.btn-xlarge{:href=>'#'}
+              %i.icon-ok.icon-white Great, now lets create some environments!
+
+      %div#waiting.page.hidden{'data-step' => "true"}
+        %div.page-container
+          %h1 Your environments are being created
+          %p#please-wait
+            Please wait for a moment...
+          %a#create-another-link{:href=>"#"}
+            Start again

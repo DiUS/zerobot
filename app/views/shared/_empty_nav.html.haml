@@ -1,0 +1,16 @@
+%div{ :class => "navbar navbar-fixed-top"}
+  %div.navbar-inner
+    %div.container-fluid
+      %a.brand{:href => "#"}
+        %img{:src => "/assets/logo/zerobot_wordmark_wht.png"}
+      %div{ :class => "container-fluid nav-collapse pull-left"}
+        %ul.nav
+          %li#nav-application-name
+          %li#nav-application-aws
+          %li#nav-application-stack
+          %li#nav-application-support
+          %li#nav-application-envs
+          %li#nav-region-selected
+          %li#nav-applicaiton-github
+      %div{ :class=> "version-label pull-right"}
+        =Dupondius::Version.version
