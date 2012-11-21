@@ -37,22 +37,6 @@ $(document).ready(function () {
         $('#please-wait').append('<div id="loading-image"><img src="/assets/ajax-loading.gif" alt="Loading..." /></div>');
     };
 
-    // recover from page refresh?
-    if ($.cookie('project_id') !== null) {
-        // show to last step
-        $('#page1').addClass('hidden');
-        $('#waiting').removeClass('hidden');
-        inifiniteCheck($.cookie('project_id'));
-
-        var data = JSON.parse($.cookie('project_data'));
-
-        $('#nav-application-name').html('<button class="btn btn-info">' + data.project.name + '</button>');
-        $('#nav-application-stack').html('<button class="btn btn-info">' + data.project.tech_stack + '</button>');
-        $('#nav-region-selected').html('<button class="btn btn-info">' + data.project.region + '</button>');
-
-        return;
-    }
-
     $.scrollingWizard({
         steps: [{
             id: '#page1',
