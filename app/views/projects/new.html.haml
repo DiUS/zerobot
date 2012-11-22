@@ -19,7 +19,7 @@
   %div.steps
     %div#page1{:class=> "page", 'data-step' => "true",  'data-submit' => "page-one-done",  'data-next' => "github-details",  'data-navigation' => "nav-application-name"}
       %div.page-container
-        - unless session[:token]
+        - unless @user
           %h1 Github Authorisation
           %p Welcome to the Launchpad!
           %p &nbsp;
@@ -32,13 +32,13 @@
           %p
             Great, you have successfully authorised via github. You are logged in as
             %strong
-              =session[:github_user]
+              =@user.login
           %p &nbsp;
           %p Now please type in the name of the application so we can get started.
           %p
             %input#application-name.input-xxlarge{ :type=> "text", :placeholder=> "Enter the name of the application" }
-            %input#application-token{:type=> "hidden", :value=> session[:token]}
-            %input#github-account{ :type=> "hidden", :value=> session[:github_user]}
+            %input#application-token{:type=> "hidden", :value=> @user.token}
+            %input#github-account{ :type=> "hidden", :value=> @user.login}
           %p
             %a#page-one-done.btn.btn-success.btn-xlarge{:href => '#'}
               %i.icon-arrow-down.icon-white Get Started
@@ -56,7 +56,7 @@
           %p &nbsp;
           %p.url
             https://github.com/
-            =session[:github_user]
+            =@user.try(:login)
             %b.url .git
           %p &nbsp;
           %p Dont worry about needing to remember this URL, you will be able to grab it later.

@@ -5,6 +5,7 @@ class ProjectsController < ApplicationController
   respond_to :json
 
   def new
+    @user = GithubUser.new(session[:token]) if github_authorised?
     render :layout => false
   end
 
@@ -35,4 +36,9 @@ class ProjectsController < ApplicationController
     end
   end
 
+  private
+
+  def github_authorised?
+    !!session[:token]
+  end
 end
