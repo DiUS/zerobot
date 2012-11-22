@@ -27,3 +27,4 @@ deployer.pem
 .env
 
 .rbenv-version
+.pry_history
