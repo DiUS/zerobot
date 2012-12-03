@@ -1,5 +1,13 @@
-# dupondi.us dashboard
+# zerobot
 
+## Getting started
+```
+git clone https://github.com/DiUS/zerobot.git
+cd zerobot/
+brew install qt   # on brew-enabled osx
+rvm use 1.9.3
+bundle install
+```
 
 ## Deployment
 
