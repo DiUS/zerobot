@@ -49,8 +49,6 @@ $(document).ready(function () {
 
                 $('b.url').html(text);
 
-                $('#page1 .btn').removeClass('btn-success').addClass('btn-primary').html('<i class="icon-arrow-down icon-white"></i>Update application name');
-
                 $('#summary-application-name').text(text);
 
                 $.cookie('project_token', $('#application-token').val(), {path: '/', expires: 365});
@@ -59,27 +57,20 @@ $(document).ready(function () {
             focus: function () {
                 $('#application-name').focus();
             }
-        },{
-            id: '#github-details',
-            validation: function () {
-                return true;
-            }
-        },{
+        },
+        {
             id: '#aws-details',
             validation: function () {
-                var account = "Default";
-                if ($('#aws-access-key-id').val().length > 0) {
-                  account = $('#aws-access-key-id').val();
-                }
-                $('#summary-aws-account').text(account);
-                return account;
-            }
-        },{
-            id: '#page2',
-            validation: function () {
-                $('#summary-technology-stack').text($('#tech-stack').selectableGrid().selected().text().trim());
 
-                return $('#tech-stack').selectableGrid().selected().text().trim() || null;
+                var accessKey = $('#aws-access-key-id').val();
+                var secretKey = $('#aws-secret-access-key').val();
+                var privateKey = $('#aws-private-key').val();
+
+                if (accessKey === '' || secretKey === '' || privateKey === '') {
+                  return null;
+                }
+                $('#summary-aws-account').text(accessKey + ' ' + secretKey + ' ' + privateKey);
+                return true;
             }
         },
         {
@@ -107,8 +98,6 @@ $(document).ready(function () {
                 token: $('#application-token').val(),
                 github_account: $('#github-account').val(),
                 github_project: applicationName,
-                github_private: $('#github-private').is(':checked'),
-                tech_stack: $('#tech-stack').selectableGrid().selected().text().trim(),
                 region: $('#aws-region').val(),
                 aws_access_key: $("#aws-access-key-id").val(),
                 aws_secret_access_key: $("#aws-secret-access-key").val(),
