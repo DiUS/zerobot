@@ -7,7 +7,7 @@ Dupondius.configure do |config|
   config.aws_region = ENV['AWS_REGION']
   config.access_key = ENV['AWS_ACCESS_KEY_ID']
   config.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
-  config.hosted_zone = 'zerobot.io'
+  config.hosted_zone = ENV['ZONE']
   config.project_name = ENV['PROJECT_NAME']
   config.github_client_id = ENV['GITHUB_CLIENT_ID']
   config.github_secret = ENV['GITHUB_SECRET']
