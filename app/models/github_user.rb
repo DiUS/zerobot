@@ -1,3 +1,5 @@
+require 'yajl'
+
 class GithubUser
 
   attr_reader :token
@@ -15,7 +17,13 @@ class GithubUser
   end
 
   def repos
-    get_repos.collect { |r| r['name'] }
+    (get_user_repos + get_org_repos).collect { |r| { :name => r['name'], :html_url => r['html_url'] }}
+  end
+
+  def get_org_repos
+    get_user_orgs.collect do |org|
+      Yajl.load(RestClient.get("https://api.github.com/orgs/#{org['login']}/repos", :params => {:access_token => @token}))
+    end.flatten
   end
   private
 
@@ -23,7 +31,12 @@ class GithubUser
     @user_info ||= Yajl.load(RestClient.get("https://api.github.com/user", :params => {:access_token => @token}))
   end
 
-  def get_repos
+  def get_user_orgs
+    @user_orgs ||= Yajl.load(RestClient.get("https://api.github.com/user/orgs", :params => {:access_token => @token}))
+  end
+
+  def get_user_repos
     @repo_info ||= Yajl.load(RestClient.get("https://api.github.com/user/repos", :params => {:access_token => @token}))
   end
+
 end

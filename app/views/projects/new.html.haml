@@ -35,7 +35,7 @@
             %strong
               =@user.login
           %p
-            =select_tag "application-name", options_for_select(@user.repos.map{|repo| [repo, repo]}.insert(0, ['Choose a repository','']))
+            =select_tag "application-name", options_for_select(@user.repos.map{|repo| [repo[:name], repo[:html_url]]}.insert(0, ['Choose a repository','']))
 
           %p
             %input#application-token{:type=> "hidden", :value=> @user.token}

@@ -41,7 +41,7 @@ $(document).ready(function () {
         steps: [{
             id: '#page1',
             validation: function () {
-                var text = $('#application-name').val().replace(/[^a-z0-9_\s]/gi, '').replace(/[\s]/g, '-');
+                var text = $('#application-name option:selected').text();
 
                 if (text === '') {
                     return null;
@@ -92,9 +92,11 @@ $(document).ready(function () {
             }
         }],
         finished: function () {
-            var applicationName = $('#application-name').val().replace(/[^a-z0-9_\s]/gi, '').replace(/[\s]/g, '-');
+            var applicationName = $('#application-name option:selected').text();
+            var applicationUrl = $('#application-name option:selected').val();
             var data = {project: {
                 name: applicationName,
+                url: applicationUrl,
                 token: $('#application-token').val(),
                 github_account: $('#github-account').val(),
                 github_project: applicationName,
