@@ -17,7 +17,7 @@ class GithubUser
   end
 
   def repos
-    (get_user_repos + get_org_repos).collect { |r| { :name => r['name'], :html_url => r['html_url'] }}
+    (get_user_repos + get_org_repos).collect { |r| { :name => r['name'], :html_url => r['html_url'] }}.sort_by{ |r| r[:name].downcase }
   end
 
   def get_org_repos
