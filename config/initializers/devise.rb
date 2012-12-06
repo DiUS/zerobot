@@ -125,7 +125,7 @@ Devise.setup do |config|
   # The time you want to timeout the user session without activity. After this
   # time the user will be asked for credentials again. Default is 30 minutes.
   # config.timeout_in = 30.minutes
-  
+
   # If true, expires auth token on session timeout.
   # config.expire_auth_token_on_timeout = false
 
@@ -207,7 +207,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   require 'openid/store/filesystem'
-  config.omniauth :google_apps, :store => OpenID::Store::Filesystem.new('/tmp'), :domain => 'dius.com.au'
+  config.omniauth :google_apps, :store => OpenID::Store::Filesystem.new('/tmp'), :domain => ENV['OMNIAUTH_DOMAIN']
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
