@@ -1,7 +1,7 @@
 require 'dupondius'
 
 Dupondius.configure do |config|
-  config.key_name = 'zerobot'
+  config.key_name = ENV['KEY_NAME'] || 'zerobot'
   config.cloudformation_bucket = 'dupondius_cf_templates'
   config.config_bucket = 'dupondius_config'
   config.aws_region = ENV['AWS_REGION']
