@@ -17,17 +17,15 @@
           %form.form-horizontal
             %h2 Select repository
             %p 
-              You have been Authorise as:
-              = session[:github_user]
+              You have been Authorise as: #{session[:github_user]}
             %p She'll be right ute my as dry as a sickie. Get a dog up ya bonza also she'll be right pav. Come a roo when we're going tinny. Come a jug where she'll be right galah. Shazza got us some cark it to as cunning as a fly wire. Trent from punchy bush oyster also lets throw a cut lunch. muster no dramas as stands out like bloke.
             %div.control-group
               %label.control-label{:for => 'repository-name'}
                 Repository Name:
               %div.controls
                 %select{:id =>'repository-name', :class => 'input-xlarge'}  
-                  %option First Repository
-                  %option Second Repository
-                  %option Third Repository
+                  - @user.repos.each do |repository|
+                    %option{:value => repository[:name]} #{repository[:name]}
                 %a.input-help
                   %i.icon-question-sign
                   %small 
