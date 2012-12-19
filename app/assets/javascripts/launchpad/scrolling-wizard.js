@@ -42,10 +42,6 @@ ScrollingWizard = (function() {
         if (value === null) {
           return;
         }
-        $navigation.empty().append("<button class=\"btn btn-info\">" + value + "</button>");
-        $navigation.find('button').click(function() {
-          return scrollTo($step, step.focus);
-        });
         if (step.finish === true) {
           _this.finished();
         }

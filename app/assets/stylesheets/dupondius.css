@@ -51,6 +51,15 @@ html, body, input, h1, button {
   font-family: 'Open Sans', sans-serif;
 }
 
+body.launchpad hr {
+  padding-top: 60px;
+}
+
+body.launchpad select {
+  height: 60px;
+  font-size: 24px;
+}
+
 p.main-logo {
   width: 630px;
   text-align: center;
@@ -61,6 +70,20 @@ p.main-logo img {
   height: 100px;
 }
 
+img.avatar {
+  height: 25px;
+}
+
+h1.launchpad {
+  padding-bottom: 50px;
+}
+
+p.main-logo img {
+  height: 100px;
+}
+p.main-logo img {
+  height: 100px;
+}
 .dupondius-image {
   float: right;
   height: 352px;
@@ -68,10 +91,11 @@ p.main-logo img {
 }
 
 .dupondius-blurb {
-  width: 630px;
+  width: 528px;
   text-align: left;
   color: #424242;
   font-size: 18px;
+  padding-left: 48px;
 }
 
 .dupondius-blurb.right {
@@ -79,7 +103,7 @@ p.main-logo img {
 }
 
 .dupondius-blurb.right .btn {
-  margin-right: 30px;
+  margin-top: 50px;
 }
 
 .btn-dupondius {
@@ -99,7 +123,7 @@ p.main-logo img {
   -webkit-font-smoothing: antialiased;
 }
 
-.welcome { 
+.welcome {
   background: url('/assets/logo/zerobot_robot_semi.png') no-repeat;
   background-position: 800px 0;
 }
@@ -138,6 +162,11 @@ p {
   line-height: 36px;
 }
 
+p.dupondius-blurb {
+  margin-bottom: 20px;
+  line-height: 150%;
+  font-size: 21px;
+}
 /*
  * Button styles
  */

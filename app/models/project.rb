@@ -1,27 +1,24 @@
 class Project < ActiveRecord::Base
   attr_accessible :name, :token, :tech_stack, :region,
     :github_account, :github_project, :github_private,
-    :aws_access_key, :aws_secret_access_key, :aws_key_name
+    :aws_access_key, :aws_secret_access_key, :aws_key_name, :url
 
   validates_presence_of :name
 
   after_create :assign_deploy_key, :assign_github_deploy_key, :launch_dashboard, :launch_ci
 
   def launch_dashboard
-    if Rails.configuration.aws_enabled
-      user = Source::Commands.new(token).user['login']
-      Dupondius::Aws::CloudFormation::Dashboard.new(self.name, self.tech_stack,
-                                                    self.region, user.to_s, {
-          InstanceType: 'm1.small',
-          DBName: 'dashboard',
-          DBUsername: 'dashboard',
-          DBPassword: 'dashboard',
-          DBRootPassword: 'r00tr00t',
-          AwsAccessKey: self.aws_access_key,
-          AwsSecretAccessKey: self.aws_secret_access_key,
-          KeyName: self.aws_key_name
-      }).create
-    end
+    Dupondius::Aws::CloudFormation::Dashboard.new(self.name, 'Ruby on Rails',
+                                                  self.region, self.github_account, {
+        InstanceType: 'm1.small',
+        DBName: 'dashboard',
+        DBUsername: 'dashboard',
+        DBPassword: 'dashboard',
+        DBRootPassword: 'r00tr00t',
+        AwsAccessKey: self.aws_access_key,
+        AwsSecretAccessKey: self.aws_secret_access_key,
+        KeyName: self.aws_key_name
+    }).create
   end
 
   def dashboard
@@ -45,7 +42,7 @@ class Project < ActiveRecord::Base
     save!
 
     github_client= Octokit::Client.new(:login => self.github_account, :oauth_token => self.token)
-    github_client.add_deploy_key({username: self.github_account, repo: self.name}, 'dupondius deploy key', self.github_deploy_key.ssh_public_key)
+    github_client.add_deploy_key(Octokit::Repository.from_url(self.url), 'dupondius deploy key', self.github_deploy_key.ssh_public_key)
   end
 
   def assign_deploy_key
@@ -68,11 +65,11 @@ class Project < ActiveRecord::Base
         KeyName: self.aws_key_name,
         InstanceType: 'm1.small',
         ProjectGithubUser: self.github_account,
-        ProjectType: self.tech_stack.split(' ').last.downcase,
+        ProjectType: 'rails',
         GithubDeployPrivateKey: self.github_deploy_key.private_key,
         DeployPrivateKey: self.deploy_key.private_key
     }
-    Dupondius::Aws::CloudFormation::ContinuousIntegration.create(self.name, self.tech_stack, self.region, options)
+    Dupondius::Aws::CloudFormation::ContinuousIntegration.create(self.name, 'Ruby on Rails', self.region, options)
   end
 
   handle_asynchronously :launch_dashboard

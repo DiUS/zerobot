@@ -8,11 +8,7 @@ class SourcesController < ApplicationController
   end
 
   def callback
-    token = client.get_token(params[:code]).token
-    user = client.user_info_for(token)
-
-    session[:github_user] = user['login']
-    session[:token] = token
+    session[:token] = client.get_token(params[:code]).token
     redirect_to :new_project
   end
 

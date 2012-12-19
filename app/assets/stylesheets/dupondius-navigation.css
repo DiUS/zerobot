@@ -3,6 +3,9 @@
     -webkit-box-shadow: 0 0 5px 1px #888;
 }
 
+select {
+  width: auto;
+}
 .navbar-inner {
     border-radius: 0;
     -webkit-border-radius: 0;

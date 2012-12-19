@@ -8,7 +8,7 @@ define([
 
         firstInPipeline: null,
 
-        url: 'http://ci.' + projectName + '.dupondi.us:8080/api/json?depth=1',
+        url: 'http://ci.' + projectName + '.zerobot.io:8080/api/json?depth=1',
 
         parse: function(response) {
             return response.jobs;
@@ -28,10 +28,10 @@ define([
             }, this);
         },
 
-        sync: function(method, model, options) {  
-            options.dataType = 'jsonp';  
+        sync: function(method, model, options) {
+            options.dataType = 'jsonp';
             options.jsonp = 'jsonp';
-            return Backbone.sync(method, model, options);  
-        } 
+            return Backbone.sync(method, model, options);
+        }
     });
 });

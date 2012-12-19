@@ -1,24 +1,3 @@
-.navbar {
-	margin-top: 10px;
-	-webkit-box-shadow: 0 0 5px 1px #888;
-}
-
-.navbar-inner {
-	border-radius: 0;
-	-webkit-border-radius: 0;
-	-moz-border-radius: 0;
-	padding-left: 0;
-	padding-right: 0;
-}
-
-.navbar-inner .nav {
-	position: relative;
-}
-
-.navbar-inner .nav .active {
-	background: none;
-}
-
 .brand {
 	text-transform: uppercase;
 	font-size: 32px !important;
@@ -83,10 +62,7 @@
 	cursor: pointer;
 	height: 82px;
 	width: 95px;
-	border-left: 1px solid #8C8C8C;
-	border-right: 1px solid #303030;
 	text-shadow: 0 1px 0 black;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5C5C5C), color-stop(100%,#303030));
 }
 
 .navbar-inner .nav li:hover {

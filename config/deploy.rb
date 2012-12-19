@@ -11,8 +11,8 @@ end
 default_run_options[:pty] = true
 
 # TODO: application should be set from project_name env var
-set :application, 'dupondius'
-set :repository,  "git@github.com:nadnerb/dashboard.git"
+set :application, 'zerobot'
+set :repository,  "git@github.com:DiUS/zerobot.git"
 set :user, "deployer"  # The server's user for deploys
 set :scm, :git
 set :git_shallow_clone, 1
@@ -30,7 +30,7 @@ set :aws_releases_bucket, 'dupondius_release'
 #elastic_load_balancer domain, :app, :web, :db, :primary => true
 
 # TODO: Make the key an env var
-ssh_options[:keys] = %w(../deployer.pem)
+ssh_options[:keys] = %w(zerobot-deployer.pem)
 
 set :stages, %w(production staging qa canary)
 
@@ -63,31 +63,11 @@ end
 
 namespace :foreman do
   desc "Export the Procfile to inittab"
+  task :reexport, :roles => :app do
+    run init_script current_path
+  end
   task :export, :roles => :app do
-    run ["cd #{release_path}",
-      # Setup application environment variables
-      "mkdir -p tmp/foreman",
-      "echo \"RAILS_ENV=#{rails_env}\" > ./tmp/env",
-      "echo \"LAUNCHPAD_ENABLED=#{ENV['LAUNCHPAD_ENABLED']}\" >> ./tmp/env",
-      "echo \"AWS_ENABLED=#{ENV['AWS_ENABLED']}\" >> ./tmp/env",
-      "echo \"LAUNCHPAD_JOBS=#{ENV['LAUNCHPAD_JOBS']}\" >> ./tmp/env",
-      "echo \"AWS_REGION=#{ENV['AWS_REGION']}\" >> ./tmp/env",
-
-      # Push the database environment variables into the app
-      "cat /etc/default/app >> ./tmp/env",
-
-      # Move it to the common place
-      "sudo mv tmp/env /etc/default/#{application}",
-
-      # Get foreman to the inittab script
-      "bundle exec foreman export initscript ./tmp/foreman -e /etc/default/#{application} -f ./Procfile.production -a #{application} -u #{user} -l #{shared_path}/log",
-      "sudo mv tmp/foreman/#{application} /etc/init.d",
-      "chmod +x /etc/init.d/#{application}",
-      "rm -rf tmp/foreman",
-
-      # Start on boot"
-      "sudo chkconfig #{application} on"
-    ].join(' && ')
+    run init_script release_path
   end
 
   desc "Start the application services"
@@ -109,21 +89,33 @@ namespace :foreman do
   task :logs, :roles => :app do
     run "cd #{current_path}/log && cat #{ENV["PROCESS"]}.log"
   end
+
+  def init_script path
+    ["cd #{path}",
+      # Setup application environment variables
+      "mkdir -p tmp/foreman",
+      "echo \"RAILS_ENV=#{rails_env}\" > ./tmp/env",
+      "echo \"LAUNCHPAD_ENABLED=#{ENV['LAUNCHPAD_ENABLED']}\" >> ./tmp/env",
+      "echo \"AWS_ENABLED=#{ENV['AWS_ENABLED']}\" >> ./tmp/env",
+      "echo \"LAUNCHPAD_JOBS=#{ENV['LAUNCHPAD_JOBS']}\" >> ./tmp/env",
+      "echo \"AWS_REGION=#{ENV['AWS_REGION']}\" >> ./tmp/env",
+      "echo \"DEMO_ENABLED=#{ENV['DEMO_ENABLED']}\" >> ./tmp/env",
+
+      # Push the database environment variables into the app
+      "cat /etc/default/app >> ./tmp/env",
+
+      # Move it to the common place
+      "sudo mv tmp/env /etc/default/#{application}",
+
+      # Get foreman to the inittab script
+      "bundle exec foreman export initscript ./tmp/foreman -e /etc/default/#{application} -f ./Procfile.production -a #{application} -u #{user} -l #{shared_path}/log",
+      "sudo mv tmp/foreman/#{application} /etc/init.d",
+      "chmod +x /etc/init.d/#{application}",
+      "rm -rf tmp/foreman",
+
+      # Start on boot"
+      "sudo chkconfig #{application} on"
+    ].join(' && ')
+  end
 end
 
-# if you want to clean up old releases on each deploy uncomment this:
-# after "deploy:restart", "deploy:cleanup"
-
-# if you're still using the script/reaper helper you will need
-# these http://github.com/rails/irs_process_scripts
-
-# If you are using Passenger mod_rails uncomment this:
- #namespace :deploy do
-   #task :start do
-      #run "cd #{current_path}/ && bundle exec foreman start"
-   #end
-   #task :stop do ; end
-   #task :restart, :roles => :app, :except => { :no_release => true } do
-     #run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-   #end
- #end
