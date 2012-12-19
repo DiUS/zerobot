@@ -1,0 +1,103 @@
+!!! Strict
+%html(lang="en")
+  %head
+    %title Zerobot - Launchpad
+    %meta{ :charset => "utf-8"}
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    %meta{ 'http-equiv' => "X-UA-Compatible", :content => "IE=Edge,chrome=1"}
+    %link{ :href => "/assets/bootstrap_and_overrides.css", :rel => "stylesheet"}
+    %link{ :href => "/assets/new/launchpad.css", :rel => "stylesheet"}
+
+    %script{:type => "text/javascript", :src => '/assets/launchpad/new/launchpad.js'}
+  %body
+    %div.container
+      %div.row
+        %div.span12
+          %h1 Zerobot Launchpad
+          %form.form-horizontal
+            %h2 Select repository
+            %p 
+              You have been Authorise as:
+              = session[:github_user]
+            %p She'll be right ute my as dry as a sickie. Get a dog up ya bonza also she'll be right pav. Come a roo when we're going tinny. Come a jug where she'll be right galah. Shazza got us some cark it to as cunning as a fly wire. Trent from punchy bush oyster also lets throw a cut lunch. muster no dramas as stands out like bloke.
+            %div.control-group
+              %label.control-label{:for => 'repository-name'}
+                Repository Name:
+              %div.controls
+                %select{:id =>'repository-name', :class => 'input-xlarge'}  
+                  %option First Repository
+                  %option Second Repository
+                  %option Third Repository
+                %a.input-help
+                  %i.icon-question-sign
+                  %small 
+                    %span.arrow
+                    help text
+
+            %hr.divider
+
+            %h2 AWS Details
+            %p She'll be right pokies bloody as cunning as a dropkick. Lets throw a jumbuck no worries stands out like a gobsmacked. Trent from punchy pot heaps as cunning as a divvy van. Gutful of mongrel where we're going bizzo. As dry as a sheila no worries he hasn't got a pot. She'll be right brass razoo with stands out like a cubby house. Flat out like a brumby when shazza got us some lippy. You little ripper bush telly bloody as busy as a porky.
+            %div.control-group
+              %label.control-label{:for => 'aws-access-key-id'}
+                AWS Region:
+              %div.controls
+                %select{:id => 'aws-access-key-id', :class => 'input-xlarge'}  
+                  %option{:value => 'us-east-1'} US East (Virginia)
+                  %option{:value => 'us-west-1'} US West (North California)
+                  %option{:value => 'us-west-2'} US West (Oregon)
+                  %option{:value => 'eu-west-1'} EU West (Ireland)
+                  %option{:value => 'ap-southeast-1'} Asia Pacific (Singapore)
+                  %option{:value => 'ap-southeast-2'} Asia Pacific (Sydney)
+                  %option{:value => 'ap-northeast-1'} Asia Pacific (Tokyo)
+                  %option{:value => 'sa-east-1'} South Amercia (Sao Paulo)
+                %a.input-help
+                  %i.icon-question-sign
+                  %small 
+                    %span.arrow
+                    help text
+            %div.control-group
+              %label.control-label{:for => 'aws-access-key-id'}
+                AWS Access Key ID:
+              %div.controls
+                %input{:id => 'aws-access-key-id', :class => 'input-xlarge', type: 'text', :placeholder => 'Enter your aws access key id'}  
+                %a.input-help
+                  %i.icon-question-sign
+                  %small 
+                    %span.arrow
+                    help text
+            %div.control-group
+              %label.control-label{:for => 'aws-secret-access-key'}
+                AWS Secret Access Key:
+              %div.controls
+                %input{:id => 'aws-secret-access-key', :class => 'input-xlarge', type: 'text', :placeholder => 'Enter your aws secret access key'}  
+                %a.input-help
+                  %i.icon-question-sign
+                  %small 
+                    %span.arrow
+                    help text
+            %div.control-group
+              %label.control-label{:for => 'aws-private-key'}
+                AWS Private Key:
+              %div.controls
+                %textarea{:id => 'aws-private-key', :class => 'input-xlarge', :placeholder => 'Enter your aws private key here'}  
+                %a.input-help
+                  %i.icon-question-sign
+                  %small 
+                    %span.arrow
+                    help text
+
+            %hr.divider
+
+            %p Lets get some battler no dramas you little ripper bradman. As dry as a piker when lets get some ya. Stands out like a longneck bloody you little ripper roadie. Grab us a bail out my lets get some brumby. He's got a massive reckon to you little ripper outback. You little ripper doovalacky where stands out like a icy pole. Get a dog up ya good oil piece of piss as stands out like jackaroo. bastard how as cross as a chuck a sickie. He's got a massive brumby where he's got a massive parma.
+            %div.control-group
+              %div.controls
+                %label.checkbox
+                  %input{:id => 'confirm-stack', :type => 'checkbox'}  
+                  Ruby on Rails
+
+            %hr.divider
+
+            %p We're going cark it to as busy as a lizard drinking. He's got a massive sheila also she'll be right waratah. metho no worries as dry as a give it a burl. He's got a massive galah flamin he's got a massive mickey mouse mate. As dry as a clucky shazza got us some freckle. Lets throw a snag no dramas it'll be dropkick. Built like a veg out no dramas built like a coathanger. Stands out like a brickie when grab us a chunder. Stands out like a yakka heaps struth. Get a dog up ya outback heaps stands out like a flick.
+            %p
+              %button.btn.btn-large.btn-primary{:type => 'button'} Create Environment

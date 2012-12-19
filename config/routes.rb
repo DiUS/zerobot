@@ -41,7 +41,9 @@ Dashboard::Application.routes.draw do
   match '/status/heart_beat' => 'status#heart_beat'
 
   match '/launchpad' => 'launchpad#index'
-  resources :projects, :only => [:new, :show, :create]
+  resources :projects, :only => [:new, :show, :create] do
+    get :authorise, :on => :collection
+  end
 
   get "home/index"
 

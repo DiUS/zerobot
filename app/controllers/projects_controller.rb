@@ -5,7 +5,11 @@ class ProjectsController < ApplicationController
   respond_to :json
 
   def new
-    render :layout => false
+    if session[:token]
+      render :layout => false
+    else
+      redirect_to :action => 'authorise'
+    end
   end
 
   def show
