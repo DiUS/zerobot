@@ -19,11 +19,15 @@
             %p 
               You have been Authorise as: #{session[:github_user]}
             %p She'll be right ute my as dry as a sickie. Get a dog up ya bonza also she'll be right pav. Come a roo when we're going tinny. Come a jug where she'll be right galah. Shazza got us some cark it to as cunning as a fly wire. Trent from punchy bush oyster also lets throw a cut lunch. muster no dramas as stands out like bloke.
+            %p 
+              If you do not have a repository to start with you can easily fork a 
+              %a{:href => 'https://github.com/DiUS/zerobot/wiki/Existing-Zerobot-Template-Repositories', :target => '_blank'} pre-made zerobot repository.
             %div.control-group
               %label.control-label{:for => 'repository-name'}
                 Repository Name:
               %div.controls
                 %select{:id =>'repository-name', :class => 'input-xlarge'}  
+                  %option
                   - @user.repos.each do |repository|
                     %option{:value => repository[:name]} #{repository[:name]}
                 %a.input-help
@@ -46,7 +50,7 @@
                   %option{:value => 'us-west-2'} US West (Oregon)
                   %option{:value => 'eu-west-1'} EU West (Ireland)
                   %option{:value => 'ap-southeast-1'} Asia Pacific (Singapore)
-                  %option{:value => 'ap-southeast-2'} Asia Pacific (Sydney)
+                  %option{:value => 'ap-southeast-2', :selected => true} Asia Pacific (Sydney)
                   %option{:value => 'ap-northeast-1'} Asia Pacific (Tokyo)
                   %option{:value => 'sa-east-1'} South Amercia (Sao Paulo)
                 %a.input-help
