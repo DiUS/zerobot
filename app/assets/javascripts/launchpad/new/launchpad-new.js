@@ -16,7 +16,7 @@
             event.preventDefault();
             event.target.parentElement.querySelector('small').classList.add('show');
         }
-    }
+    };
 
     document.ontouchstart = handleHelpIconClick;
     document.onclick = handleHelpIconClick;

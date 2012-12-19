@@ -8,25 +8,25 @@
     %link{ :href => "/assets/bootstrap_and_overrides.css", :rel => "stylesheet"}
     %link{ :href => "/assets/new/launchpad.css", :rel => "stylesheet"}
 
-    %script{:type => "text/javascript", :src => '/assets/launchpad/new/launchpad.js'}
+    %script{:type => "text/javascript", :src => '/assets/launchpad/new/launchpad-new.js'}
   %body
     %div.container
       %div.row
         %div.span12
           %h1 Zerobot Launchpad
-          %form.form-horizontal
+          %form.form-horizontal{:action => '/projects', :method => 'POST'}
             %h2 Select repository
             %p 
-              You have been Authorise as: #{session[:github_user]}
+              You have been Authorise as: #{@user.login}
             %p She'll be right ute my as dry as a sickie. Get a dog up ya bonza also she'll be right pav. Come a roo when we're going tinny. Come a jug where she'll be right galah. Shazza got us some cark it to as cunning as a fly wire. Trent from punchy bush oyster also lets throw a cut lunch. muster no dramas as stands out like bloke.
             %p 
               If you do not have a repository to start with you can easily fork a 
-              %a{:href => 'https://github.com/DiUS/zerobot/wiki/Existing-Zerobot-Template-Repositories', :target => '_blank'} pre-made zerobot repository.
+              %a{:href => 'https://github.com/DiUS/zerobot/wiki/Existing-Zerobot-Template-Repositories', :target => '_blank'} zerobot template repository.
             %div.control-group
               %label.control-label{:for => 'repository-name'}
                 Repository Name:
               %div.controls
-                %select{:id =>'repository-name', :class => 'input-xlarge'}  
+                %select#repository-name.input-xlarge
                   %option
                   - @user.repos.each do |repository|
                     %option{:value => repository[:name]} #{repository[:name]}
@@ -41,10 +41,10 @@
             %h2 AWS Details
             %p She'll be right pokies bloody as cunning as a dropkick. Lets throw a jumbuck no worries stands out like a gobsmacked. Trent from punchy pot heaps as cunning as a divvy van. Gutful of mongrel where we're going bizzo. As dry as a sheila no worries he hasn't got a pot. She'll be right brass razoo with stands out like a cubby house. Flat out like a brumby when shazza got us some lippy. You little ripper bush telly bloody as busy as a porky.
             %div.control-group
-              %label.control-label{:for => 'aws-access-key-id'}
+              %label.control-label{:for => 'aws-region'}
                 AWS Region:
               %div.controls
-                %select{:id => 'aws-access-key-id', :class => 'input-xlarge'}  
+                %select#aws-region-id.input-xlarge
                   %option{:value => 'us-east-1'} US East (Virginia)
                   %option{:value => 'us-west-1'} US West (North California)
                   %option{:value => 'us-west-2'} US West (Oregon)
@@ -62,7 +62,7 @@
               %label.control-label{:for => 'aws-access-key-id'}
                 AWS Access Key ID:
               %div.controls
-                %input{:id => 'aws-access-key-id', :class => 'input-xlarge', type: 'text', :placeholder => 'Enter your aws access key id'}  
+                %input#aws-access-key-id.input-xlarge{type: 'text', :placeholder => 'Enter your aws access key id'}  
                 %a.input-help
                   %i.icon-question-sign
                   %small 
@@ -72,7 +72,7 @@
               %label.control-label{:for => 'aws-secret-access-key'}
                 AWS Secret Access Key:
               %div.controls
-                %input{:id => 'aws-secret-access-key', :class => 'input-xlarge', type: 'text', :placeholder => 'Enter your aws secret access key'}  
+                %input#aws-secret-access-key.input-xlarge{type: 'text', :placeholder => 'Enter your aws secret access key'}  
                 %a.input-help
                   %i.icon-question-sign
                   %small 
@@ -82,7 +82,7 @@
               %label.control-label{:for => 'aws-private-key'}
                 AWS Private Key:
               %div.controls
-                %textarea{:id => 'aws-private-key', :class => 'input-xlarge', :placeholder => 'Enter your aws private key here'}  
+                %textarea#aws-private-key.input-xlarge{:placeholder => 'Enter your aws private key here'}  
                 %a.input-help
                   %i.icon-question-sign
                   %small 
@@ -95,11 +95,11 @@
             %div.control-group
               %div.controls
                 %label.checkbox
-                  %input{:id => 'confirm-stack', :type => 'checkbox'}  
+                  %input#confirm-stack{:type => 'checkbox'}  
                   Ruby on Rails
 
             %hr.divider
 
             %p We're going cark it to as busy as a lizard drinking. He's got a massive sheila also she'll be right waratah. metho no worries as dry as a give it a burl. He's got a massive galah flamin he's got a massive mickey mouse mate. As dry as a clucky shazza got us some freckle. Lets throw a snag no dramas it'll be dropkick. Built like a veg out no dramas built like a coathanger. Stands out like a brickie when grab us a chunder. Stands out like a yakka heaps struth. Get a dog up ya outback heaps stands out like a flick.
             %p
-              %button.btn.btn-large.btn-primary{:type => 'button'} Create Environment
+              %button.btn.btn-large.btn-primary{:type => 'submit'} Bootstrap Project

@@ -1,0 +1,18 @@
+!!! Strict
+%html(lang="en")
+  %head
+    %title Zerobot - Launchpad
+    %meta{ :charset => "utf-8"}
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+    %meta{ 'http-equiv' => "X-UA-Compatible", :content => "IE=Edge,chrome=1"}
+    %link{ :href => "/assets/bootstrap_and_overrides.css", :rel => "stylesheet"}
+    %link{ :href => "/assets/new/launchpad.css", :rel => "stylesheet"}
+
+    %script{:type => "text/javascript", :src => '/assets/launchpad/new/launchpad-creating.js'}
+
+    :javascript
+      projectId = #{params[:id]};
+  %body
+    %div.container
+      creating yo
+      %div.complete

@@ -29,10 +29,8 @@ class ProjectsController < ApplicationController
 
   def create
     if Rails.configuration.demo_enabled
-      render :json => {
-        :id => 1,
-        :name => 'YOWDemo'
-      }
+      params[:id] = 1
+      render 'creating', :layout => false
     else
       github_private = params[:project][:github_private] ? true : false
       project = Project.create!(params[:project].except(:support, :github_private).merge(:github_private => github_private))
