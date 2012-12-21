@@ -71,9 +71,6 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 0.1.4)
-    capybara-webkit (0.12.1)
-      capybara (>= 1.0.0, < 1.2)
-      json
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
     coffee-rails (3.2.2)
@@ -327,8 +324,6 @@ DEPENDENCIES
   bigdecimal
   capistrano
   capistrano-s3-copy!
-  capybara
-  capybara-webkit
   coffee-rails (~> 3.2.1)
   cucumber-rails
   curb (~> 0.8.1)

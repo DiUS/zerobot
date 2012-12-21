@@ -9,7 +9,7 @@
                 if (xhr.status === 200) {
                     callback(JSON.parse(xhr.responseText));
                 } else {
-                    console.log('something went wrong. Refresh your browser');
+                    document.querySelector('.complete').innerHTML = 'There was an issue, please refresh your browser';
                 }
             }
         };
@@ -31,6 +31,6 @@
     };
 
     window.onload = function () {
-        infiniteChecking(projectId);
+        infiniteChecking(projectId); // projectId is global
     };
 })();
