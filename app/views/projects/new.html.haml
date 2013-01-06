@@ -35,8 +35,16 @@
             %strong
               =@user.login
           %p
-            =select_tag "application-name", options_for_select(@user.repos.map{|repo| [repo[:name], repo[:html_url]]}.insert(0, ['Choose a repository','']))
-
+            %select
+              %option Choose a repository
+              %optgroup{:label => 'User Repositories'}
+                - @user.get_user_repos.each do |repo|
+                  %option{:value => repo['html_url']} 
+                    = repo['name']
+              %optgroup{:label => 'Org Repositories'}
+                - @user.get_org_repos.each do |repo|
+                  %option{:value => repo['html_url']} 
+                    = repo['name']
           %p
             %input#application-token{:type=> "hidden", :value=> @user.token}
             %input#github-account{ :type=> "hidden", :value=> @user.login}
