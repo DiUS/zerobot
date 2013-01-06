@@ -11,11 +11,14 @@ class ProjectsController < ApplicationController
 
   def show
     if Rails.configuration.demo_enabled
+      status = 'NOT_COMPLETE'
+      status = 'CREATE_COMPLETE' if Random.rand < 0.4
+
       render :json => {
         :id => 1,
         :name => 'YOWDemo',
         :output => { :key => 1, :value => "http://dashboard.yowdemo.zerobot.io" },
-        :status => 'CREATE_COMPLETE'
+        :status => status
       }
     else
       @project = Project.find(params[:id])

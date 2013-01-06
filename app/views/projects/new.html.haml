@@ -35,7 +35,7 @@
             %strong
               =@user.login
           %p
-            %select
+            %select#application-name
               %option Choose a repository
               %optgroup{:label => 'User Repositories'}
                 - @user.get_user_repos.each do |repo|
@@ -119,5 +119,3 @@
         %h1 Your environments are being created
         %p#please-wait
           Please wait for a moment...
-        %a#create-another-link{:href=>"#"}
-          Start again
