@@ -1,0 +1,33 @@
+.container > .row, .header {
+    padding: 20px 0;
+    /*border: 1px solid black;*/
+}
+
+.action {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.action .btn-action {
+    font-size: 20px;
+    padding: 13px 18px;
+}
+
+.orientation {
+    text-align: right;
+    padding-top: 25px;
+}
+
+.desireable {
+    background: url('/assets/home/tick.png') no-repeat center left;
+    padding-left: 50px;
+    margin-bottom: 20px;
+}
+
+.desireables {
+    margin: 0 auto;
+}
+
+.desireable h3 {
+    font-size: 16px;
+}

@@ -6,21 +6,43 @@
     %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0"}
     %meta{ 'http-equiv' => "X-UA-Compatible", :content => "IE=Edge,chrome=1"}
     %link{ :href => "/assets/bootstrap_and_overrides.css", :rel => "stylesheet"}
-    %link{ :href => "/assets/dupondius.css", :rel => "stylesheet"}
-    %link{ :href => "/assets/dupondius-navigation.css", :rel => "stylesheet"}
-    %link{ :href => "/assets/planar.css", :rel => "stylesheet"}
-    %link{ :href => "/assets/jquery.selectable-grid.css", :rel => "stylesheet"}
-  %body.welcome
-
-    %div.steps
-      %div#home.home-page
-        %div.page-container
-          %div.home-main
-            %p.main-logo
-              %img{src: '/assets/logo/zerobot_wordmark_blk.png'}
-            %p.dupondius-blurb The Zerobot Launchpad gets you up and running in no time - creating the stack you need with a fully-automated continuous delivery solution.
-            %p.dupondius-blurb Iteration zero made easy.
-            %p.dupondius-blurb.right
-              %a.btn.btn-dupondius.btn-xlarge{ :href => '/launchpad'}
-                Take me to the Launchpad &nbsp;
-                %i.icon-arrow-right.icon-white
+    %link{ :href => "/assets/home.css", :rel => "stylesheet"}
+  %body
+    %div.container
+      %div.row
+        %div.offset1.span10.header
+          %img{src: '/assets/logo/zerobot_wordmark_blk.png'}
+      %div.row
+        %div.offset1.span5
+          %img{src: '/assets/home/dashboard.png'}
+        %div.span5.orientation
+          %p.lead The Zerobot Launchpad gets you up and running in no time - creating the stack you need with a fully-automated continuous delivery solution.
+          %p.lead Iteration zero made easy.
+      %div.row
+        %div.span12.action
+          %a.btn.btn-dupondius.btn-large.btn-primary.btn-action{ :href => '/launchpad'}
+            Take me to the Launchpad &nbsp;
+            %i.icon-arrow-right.icon-white
+      %div.row
+        %div.span12
+          %div.row.desireables
+            %div.offset2.span4
+              %div.desireable
+                %h3 Start projects quickly
+                %p.muted ladada ladada ladada ladada ladada
+              %div.desireable
+                %h3 Integrated Story Tracking
+                %p.muted ladada ladada ladada ladada ladada
+              %div.desireable
+                %h3 Continuous Delivery
+                %p.muted ladada ladada ladada ladada ladada
+            %div.span4
+              %div.desireable
+                %h3 Leverage the latest AWS tools
+                %p.muted ladada ladada ladada ladada ladada
+              %div.desireable
+                %h3 Integate with Github
+                %p.muted ladada ladada ladada ladada ladada
+              %div.desireable
+                %h3 Live cost estimates
+                %p.muted ladada ladada ladada ladada ladada
