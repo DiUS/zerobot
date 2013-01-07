@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   def show
     if Rails.configuration.demo_enabled
       status = 'NOT_COMPLETE'
-      status = 'CREATE_COMPLETE' if Random.rand < 0.3
+      status = 'CREATE_COMPLETE' if Random.rand < 0.6
 
       render :json => {
         :id => 1,

@@ -46,8 +46,6 @@ define([
 
             var github = new GithubView();
             this.dashboard.add(github);
-
-            github.github();
         },
 
         performance: function () {
