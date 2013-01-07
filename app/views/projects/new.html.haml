@@ -34,6 +34,11 @@
             %img.avatar{:src => @user.avatar_url}
             %strong
               =@user.login
+          %p 
+            %small
+              Currently we supply template repositories to get your started. You will need to fork one of these repositories before continuing. We plan to extend support past our own template repositories in the future.  
+              %a{:href => 'http://github.com/DiUS/zerobot/wiki/Zerobot-Template-Repositories', :target => '_blank'} 
+                You can fork one of our existing template repositories here
           %p
             %select#application-name
               %option Choose a repository
@@ -52,10 +57,13 @@
             %a#page-one-done.btn.btn-primary.btn-xlarge{:href => '#'}
               %i.icon-arrow-down.icon-white
               Get Started
-          %hr
-            %a{:href => "/source/new"}
-              REAUTHORISE ME PLEASE, I WANT TO USE A DIFFERENT GITHUB ACCOUNT
-          %p (You will need to log out of your github account first)
+          %p.end
+            %small
+              %a{:href => "/source/new"}
+                REAUTHORISE ME PLEASE, I WANT TO USE A DIFFERENT GITHUB ACCOUNT
+              %br
+              %span 
+                (You will need to log out of your github account first)
 
     %div#aws-details.page.hidden{'data-step' => "true",  'data-submit' => "aws-done", 'data-next' => "region", 'data-navigation' => "nav-application-aws"}
       %div.page-container
