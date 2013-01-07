@@ -12,7 +12,7 @@ $(document).ready(function () {
             $('#loading-image').remove();
             $('#please-wait').remove();
             $('#waiting .page-container h1').text('Your environment is ready for action');
-            $('#waiting .page-container').append('<h1><a href="' + response.output.value + '" target="_blank">' + response.output.value + '</a></h1>');
+            $('#waiting .page-container').append('<h2><a href="' + response.output.value + '" target="_blank">' + response.output.value + '</a></h2>');
             $('#waiting .page-container').append('<p>Done with this environment? <a id="create-another-link" href="">Create another</a></p>');
             return;
         } else {
@@ -104,6 +104,10 @@ $(document).ready(function () {
             }
         }],
         finished: function () {
+            if ($.cookie('project_id') !== null) {
+                return;
+            }
+
             var applicationName = $('#application-name option:selected').text();
             var applicationUrl = $('#application-name option:selected').val();
             var data = {project: {
