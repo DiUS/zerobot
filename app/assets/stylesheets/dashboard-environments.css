@@ -70,6 +70,6 @@
     position: absolute;
 }
 
-.modal-body {
+.environments .modal-body {
     min-height:155px;
 }

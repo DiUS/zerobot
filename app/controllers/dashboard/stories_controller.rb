@@ -13,6 +13,11 @@ class Dashboard::StoriesController < ActionController::Base
     render :json => iteration(one_and_only)
   end
 
+  def destroy
+    Dashboard::PivotalTrackerConfiguration.delete_all
+    render :json => {}
+  end
+
   def velocity
     one_and_only = Dashboard::PivotalTrackerConfiguration.first
     return render :json => { :not_configured => true } if one_and_only.nil?

@@ -3,14 +3,16 @@ define([
     'models/iteration',
     'views/widget-view',
     'views/pivotal-tracker-help-view',
+    'views/pivotal-tracker-change-view',
     'text!templates/configure-pivotal.html.haml'
-], function (Backbone, Iteration, WidgetView, PivotalTrackerHelpView, configurePivotalTemplate) {
+], function (Backbone, Iteration, WidgetView, PivotalTrackerHelpView, PivotalTrackerChangeView, configurePivotalTemplate) {
     return Backbone.SuperView.extend({
 
         id: 'stories',
 
         events: {
             'click button.btn': 'configurePivotalTracker',
+            'click #reset-pivotal-tracker': 'changePivotalTracker',
             'click .help': 'help'
         },
 
@@ -37,6 +39,7 @@ define([
             this.$el.html(view.el);
             this.renderLineGraph(view);
             this.$('.widget-header h3').append(this.make('a', {'href': 'https://www.pivotaltracker.com/projects/' + this.model.get('stories')[0].project_id, 'target': '_blank'}, 'Pivotal Tracker'));
+            this.$('.widget-header h3').append('<div class="widget-toolbar"><a id="reset-pivotal-tracker" class="btn configure-newrelic-btn" href="#" rel="tooltip" title="Configuration"><i class="icon-cog"/></a></div>');
         },
 
         renderConfigurePivotalTracker: function () {
@@ -46,10 +49,22 @@ define([
             }).render();
 
             if (this.model.has('not_configured')) {
-                view.appendTemplate(configurePivotalTemplate);    
+                view.appendTemplate(configurePivotalTemplate);
             }
 
             this.$el.html(view.el);
+        },
+
+        changePivotalTracker: function () {
+            var view = new PivotalTrackerChangeView({model: this.model}).render();
+            view.$el.removeClass('loading');
+            this.$el.append(view.el);
+            view.show();
+
+            view.model.on('destroy', function () {
+                window.location.reload();
+            }, this);
+            return false;
         },
 
         help: function () {

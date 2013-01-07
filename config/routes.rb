@@ -12,7 +12,7 @@ Dashboard::Application.routes.draw do
 
   namespace :dashboard do
     # this needs some spring cleaning
-    resource :stories, :only => [:create, :show] do
+    resource :stories, :only => [:create, :show, :destroy] do
       get 'velocity'
     end
     resources :performance
