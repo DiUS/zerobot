@@ -3,7 +3,7 @@
         %h3 dev
     - else {
         %h3
-            %a.environment-name{target: '_blank', href: 'http://' + model.tags['dupondius:environment'] + '.' + model.tags['dupondius:project'] + '.dupondi.us/'}= model.tags['dupondius:environment']
+            %a.environment-name{target: '_blank', href: 'http://' + model.tags['dupondius:environment'] + '.' + model.tags['dupondius:project'] + '.zerobot.io/'}= model.tags['dupondius:environment']
 %div.environment-information
     %dl.dl-horizontal
         - if (model.tags['dupondius:environment'] === 'dev') {
