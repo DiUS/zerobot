@@ -33,18 +33,6 @@ class ProjectsController < ApplicationController
         :name => 'YOWDemo'
       }
     else
-      check = AWS::EC2.new(
-          :access_key_id     => params[:project][:aws_access_key],
-          :secret_access_key => params[:project][:aws_secret_access_key]
-      )
-
-      begin
-        check.instances.inject({}) { |m, i| m[i.id] = i.status; m }
-      rescue Object => e
-        render :json => { :error => e.to_s }
-        return
-      end
-
       github_private = params[:project][:github_private] ? true : false
       project = Project.create!(params[:project].except(:support, :github_private).merge(:github_private => github_private))
       respond_with(project, :location => :projects)
