@@ -15,6 +15,14 @@ $(document).ready(function () {
             $('#waiting .page-container').append('<h2><a href="' + response.output.value + '" target="_blank">' + response.output.value + '</a></h2>');
             $('#waiting .page-container').append('<p>Done with this environment? <a id="create-another-link" href="">Create another</a></p>');
             return;
+        } else if (response.status === 'ROLLBACK_COMPLETE' || response.status === 'CREATE_FAILED') {
+            $('#loading-image').remove();
+            $('#please-wait').remove();
+            $('#waiting .page-container h1').text('Your environment failed to be created');
+            $('#waiting .page-container').append('<p>There was an issue creating your environment.</p>');
+            $('#waiting .page-container').append('<p>Please ensure that the AWS credentials you have provided are correct.</p>');
+            $('#waiting .page-container').append('<p>If you believe the AWS credentials given are correct, please log into the <a target="_blank" href="https://console.aws.amazon.com/cloudformation/home">AWS Management Console</a> to investigate further.</p>');
+            $('#waiting .page-container').append('<p>When you are confident that you can attempt to create your environments again, <a id="create-another-link" href="">click here</a>.</p>');
         } else {
           setTimeout(function () {
             $.ajax({
@@ -125,6 +133,16 @@ $(document).ready(function () {
             $.cookie('project_data', JSON.stringify(data), {expires: 365});
 
             var postSuccess = function(response) {
+                if (response.error !== undefined) {
+                    $('#loading-image').remove();
+                    $('#please-wait').remove();
+                    $('#waiting .page-container h1').text('Your environment failed to be created');
+                    $('#waiting .page-container').append('<p>There was an issue creating your environment.</p>');
+                    $('#waiting .page-container').append('<p>' + response.error + '</p>');
+                    $('#waiting .page-container').append('<p>When you are confident that you can attempt to create your environments again, <a id="create-another-link" href="">click here</a>.</p>');
+                    return;
+                }
+
                 $.cookie('project_id', response.id, {expires: 365});
                 inifiniteCheck(response.id);
             };
