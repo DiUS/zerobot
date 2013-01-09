@@ -133,18 +133,18 @@ $(document).ready(function () {
             $.cookie('project_data', JSON.stringify(data), {expires: 365});
 
             var postSuccess = function(response) {
-                if (response.error !== undefined) {
-                    $('#loading-image').remove();
-                    $('#please-wait').remove();
-                    $('#waiting .page-container h1').text('Your environment failed to be created');
-                    $('#waiting .page-container').append('<p>There was an issue creating your environment.</p>');
-                    $('#waiting .page-container').append('<p>' + response.error + '</p>');
-                    $('#waiting .page-container').append('<p>When you are confident that you can attempt to create your environments again, <a id="create-another-link" href="">click here</a>.</p>');
-                    return;
-                }
-
                 $.cookie('project_id', response.id, {expires: 365});
                 inifiniteCheck(response.id);
+            };
+
+            var postError = function(xhr, responseText) {
+                debugger;
+                $('#loading-image').remove();
+                $('#please-wait').remove();
+                $('#waiting .page-container h1').text('Your environment failed to be created');
+                $('#waiting .page-container').append('<p>There was an issue creating your environment.</p>');
+                $('#waiting .page-container').append('<p>' + xhr.responseText + '</p>');
+                $('#waiting .page-container').append('<p>When you are confident that you can attempt to create your environments again, <a id="create-another-link" href="">click here</a>.</p>');
             };
 
             $.ajax({
@@ -152,7 +152,8 @@ $(document).ready(function () {
                 url: '/projects',
                 contentType: "application/json",
                 data: JSON.stringify(data),
-               success: postSuccess
+                success: postSuccess ,
+                error: postError
             });
         }
     });

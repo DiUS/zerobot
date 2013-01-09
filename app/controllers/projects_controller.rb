@@ -40,14 +40,15 @@ class ProjectsController < ApplicationController
 
       begin
         check.instances.inject({}) { |m, i| m[i.id] = i.status; m }
-      rescue Object => e
-        render :json => { :error => e.to_s }
-        return
-      end
+
 
       github_private = params[:project][:github_private] ? true : false
       project = Project.create!(params[:project].except(:support, :github_private).merge(:github_private => github_private))
       respond_with(project, :location => :projects)
+      rescue Object => e
+        render :text => e.to_s, :status => :error
+        return
+      end
     end
   end
 
