@@ -1,37 +1,36 @@
-# zerobot
+# Zerobot
 
-## Getting started
+## Startup Guide for Developers
+
+### Prerequisites
+Ensure the following is installed on your machine:
+
+* RVM (https://rvm.io/rvm/install/)
+* Ruby 1.9.3 installed via RVM
+* Mysql (http://dev.mysql.com/downloads/mysql/)
+
+### Steps
+
+Once the source has been cloned, do the following:
 ```
-git clone https://github.com/DiUS/zerobot.git
-cd zerobot/
-brew install qt   # on brew-enabled osx
+brew install qt
 rvm use 1.9.3
 bundle install
+bundle exec rake db:migrate
 ```
 
-## Deployment
-
+Configure the application
 ```
-cap deploy
-```
-
-# Skeleton
-
-```
-curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d
-'{"name":"babyskeleton"}'  http://localhost:5000/skeleton.json
-```
-# To reset the Pivotal tracker configuration
-
-```
-rails c
-Dashboard::PivotalTrackerConfiguration.delete_all
+cp dev.env .env
+source .env
 ```
 
-# RequireJS - Production Mode
-
-From root directory:
-
+Now start the app
 ```
-node app/assets/build/r.js -o app/assets/build/build.js
+foreman start
 ```
+
+### Potential issues
+
+* When starting foreman, you get `Library not loaded: libmysqlclient.18.dylib`
+** Solution at http://stackoverflow.com/questions/10557507/rails-mysql-on-osx-library-not-loaded-libmysqlclient-18-dylib
