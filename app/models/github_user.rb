@@ -27,7 +27,7 @@ class GithubUser
   end
 
   def get_user_repos
-    @repo_info ||= Yajl.load(RestClient.get("https://api.github.com/user/repos", :params => {:access_token => @token}))
+    @repo_info ||= Yajl.load(RestClient.get("https://api.github.com/user/repos", :params => {:access_token => @token, :type => 'owner'}))
   end
   
   private
