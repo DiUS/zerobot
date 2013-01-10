@@ -28,6 +28,10 @@ define([
         },
 
         canCommit: function () {
+            if(this.get('lastSuccessfulBuild') === null) {
+                return false;
+            }
+
             if (this.get('niceName') !== 'Build' && this.get('niceName') !== 'Acceptance') {
                 return true;
             }
