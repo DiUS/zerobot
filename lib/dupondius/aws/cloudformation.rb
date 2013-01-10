@@ -135,9 +135,9 @@ module Dupondius; module Aws; module CloudFormation
       access.stacks.create("ci-#{project_name}", Template.find(template_name),
         :parameters => {HostedZone: Dupondius.config.hosted_zone,
                         ProjectName: project_name,
-                        DBName: project_name,
-                        DBUsername: project_name,
-                        DBPassword: project_name}.merge(parameters))
+                        DBName: "ci",
+                        DBUsername: "ciuser",
+                        DBPassword: "password"}.merge(parameters))
     end
 
 
