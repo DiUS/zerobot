@@ -178,7 +178,7 @@ module Dupondius; module Aws; module CloudFormation
 
       # inject the dashboard install script into the user-data
       user_data = template['Resources']['WebServer']['Properties']['UserData']['Fn::Base64']['Fn::Join'].last
-      user_data.insert((user_data.size) -4, "curl -L https://s3.amazonaws.com/dupondius_config/install-dashboard | bash -s #{@tech_stack.parameterize} #{@aws_region} #{@github_user}\n")
+      user_data.insert((user_data.size) -4, "curl -L https://s3.amazonaws.com/dupondius_config/install-dashboard | bash -s #{@tech_stack.parameterize} #{@aws_region} #{@github_user} #{@parameters[:KeyName]}\n")
       JSON.pretty_generate(template)
     end
   end
