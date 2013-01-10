@@ -54,6 +54,7 @@ echo "ENABLE_LAUNCHPAD=false" >> /etc/default/app
 echo "TECH_STACK=$tech_stack" >> /etc/default/app
 echo "AWS_REGION=$aws_region" >> /etc/default/app
 echo "PROJECT_GITHUB_USER=$project_github_user" >> /etc/default/app
+echo "OMNIAUTH_DOMAIN=dius.com.au" >> /etc/default/app
 
 # Generate initd scripts
 su - deployer -c "cd /opt/app/$dashboard_name/current && bundle exec foreman export initscript /tmp -e /etc/default/app -f ./Procfile.production -a $dashboard_name -u deployer -l /opt/app/$dashboard_name/current/log"
