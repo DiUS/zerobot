@@ -118,3 +118,7 @@ i.icon-float-right {
 #performance-widget iframe {
   width: 100%
 }
+
+.widget-content .content {
+    height: 100%;
+}
