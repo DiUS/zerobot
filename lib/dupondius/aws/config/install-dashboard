@@ -16,7 +16,7 @@ usage() {
   exit 1
 }
 
-if [ -z "$3" ]; then
+if [ -z "$4" ]; then
   usage
 fi
 
