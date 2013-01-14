@@ -10,7 +10,9 @@
             %dt Instance Count:
             %dd.status = instances.length
         - else {
-            %dt Currently:
+            %dt Status:
+            %dd.stack-status = stack.status || 'waiting...'
+            %dt Instances:
             %dd.status = model.status
             %dt Size:
             %dd.size = model.instance_type

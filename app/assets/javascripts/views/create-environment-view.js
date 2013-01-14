@@ -145,6 +145,12 @@ define([
 
                 this.model.set({templateName: this.stackTemplate.get('id')}, {silent: true});
                 this.model.set({parameters: attrs}, {silent: true});
+
+                this.bindTo(this.model, 'sync', function () {
+                    this.model.trigger('saved');
+                    this.unbind();
+                });
+                
                 this.model.save();
             }
 

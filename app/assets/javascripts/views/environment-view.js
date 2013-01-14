@@ -30,15 +30,38 @@ define([
 
         view: null,
 
+        getStack: function () {
+            this.stack = new Stack({id: this.model.get('tags')['aws:cloudformation:stack-name']});
+            this.bindTo(this.stack, 'change', function () {
+                this.render();
+            });
+
+            var self = this;
+
+            setInterval(function () {
+                self.stack.fetch();
+            }, 30000);
+
+            this.stack.fetch();
+        },
+
         serialize: function () {
             var instances = this.instancesCollection;
             if (instances !== undefined) {
                 instances = instances.toJSON();
             }
 
+            var stack;
+            if (this.stack === undefined) {
+                stack = {status: 'UNKNOWN'};
+            } else {
+                stack = this.stack.toJSON();
+            }
+
             return {
                 model: this.model.toJSON(),
-                instances: instances
+                instances: instances,
+                stack: stack
             };
         },
 
@@ -160,25 +183,10 @@ define([
         },
 
         keepChecking: function () {
-            var event = this.bindTo(this.model, 'change', function () {
-                this.render().fadeIn();
-                if (this.model.get('status') === 'terminated') {
-                    this.model = this.availableModel;
-                    this.renderCreateEnvironment().fadeIn();
-                    clearInterval(this.interval);
-                    event.unbind();
-                }
-
-                if (!_(['pending', 'stopping', 'shutting_down']).include(this.model.get('status'))) {
-                    clearInterval(this.interval);
-                    event.unbind();
-                }
-            });
-
-            var view = this;
-            this.interval = setInterval(function () {
-                view.model.fetch();
-            }, 10000);
+            this.model.fetch();
+            setTimeout(function () {
+                location.reload();
+            }, 40000);
         }
     });
 })
