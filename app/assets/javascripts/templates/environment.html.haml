@@ -25,13 +25,13 @@
                 %button.instances.btn.btn-primary View Instances
         - else {
             - if (model.status === 'stopped') {
-                %button.start.btn.btn-large.btn-success Start Environment
+                %button.start.btn.btn-large.btn-success Start Instances
             - if (model.status === 'stopping') {
-                %button.stop.btn.btn-large.btn-danger.disabled Stop Environment
+                %button.stop.btn.btn-large.btn-danger.disabled Stop Instances
             - if (model.status === 'pending') {
-                %button.start.btn.btn-large.btn-success.disabled Start Environment
+                %button.start.btn.btn-large.btn-success.disabled Start Instances
             - if (model.status === 'running') {
-                %button.stop.btn.btn-large.btn-danger Stop Environment
+                %button.stop.btn.btn-large.btn-danger Stop Instances
             %br
             %button.info.btn.btn-small.btn-info Info
             - if (model.status !== 'stopping' && model.status !== 'pending' && model.status !== 'shutting_down') {
