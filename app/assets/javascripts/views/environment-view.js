@@ -33,7 +33,9 @@ define([
         getStack: function () {
             this.stack = new Stack({id: this.model.get('tags')['aws:cloudformation:stack-name']});
             this.bindTo(this.stack, 'change', function () {
-                this.render();
+                if (!this.$el.hasClass('loading')) {
+                    this.render();
+                }
             });
 
             var self = this;

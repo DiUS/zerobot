@@ -23,7 +23,7 @@ class Aws::StacksController < ApplicationController
   def update
     stack = Dupondius::Aws::CloudFormation::Stack.find(params[:id])
     stack.update(params[:parameters])
-    respond_with(stack)
+    render :json => {:success => true}, :status => 200
   end
 
   def create

@@ -33,6 +33,8 @@ define([
             });
 
             this.bindTo(this.model, 'error', function (model, errors) {
+                this.$('.confirm').removeClass('disabled').text('Continue');
+
                 if (errors.responseText) {
                     this.populateServerErrors(errors.responseText);
                 } else {
@@ -126,6 +128,7 @@ define([
         },
 
         confirm: function () {
+            this.$('.confirm').addClass('disabled').text('...');
             if (this.stackTemplate === undefined) {
                 this.stackTemplate = new StackTemplate({ id: this.$('#stack-templates').val() });
                 this.bindTo(this.stackTemplate, 'change', function () {
@@ -146,11 +149,6 @@ define([
                 this.model.set({templateName: this.stackTemplate.get('id')}, {silent: true});
                 this.model.set({parameters: attrs}, {silent: true});
 
-                this.bindTo(this.model, 'sync', function () {
-                    this.model.trigger('saved');
-                    this.unbind();
-                });
-                
                 this.model.save();
             }
 
