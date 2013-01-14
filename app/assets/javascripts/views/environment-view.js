@@ -38,6 +38,11 @@ define([
                 }
             });
 
+            this.bindTo(this.stack, 'error', function () {
+                // probably a 404, lets refresh
+                location.reload();
+            });
+
             var self = this;
 
             setInterval(function () {

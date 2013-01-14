@@ -128,7 +128,6 @@ define([
         },
 
         confirm: function () {
-            this.$('.confirm').addClass('disabled').text('...');
             if (this.stackTemplate === undefined) {
                 this.stackTemplate = new StackTemplate({ id: this.$('#stack-templates').val() });
                 this.bindTo(this.stackTemplate, 'change', function () {
@@ -137,6 +136,7 @@ define([
                 this.stackTemplate.fetch();
                 this.fadeOut();
             } else {
+                this.$('.confirm').addClass('disabled').text('...');
                 var attrs = {};
                 _(this.stackTemplate.get('parameters')).each(function (parameter) {
                     attrs[parameter.parameter_key] = this.$('#'+ parameter.parameter_key).val();

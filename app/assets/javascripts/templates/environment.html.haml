@@ -10,8 +10,9 @@
             %dt Instance Count:
             %dd.status = instances.length
         - else {
-            %dt Status:
-            %dd.stack-status = stack.status || 'waiting...'
+            - if (!_(model.tags['dupondius:environment']).startsWith('dev')) {
+                %dt Status:
+                %dd.stack-status = stack.status || 'waiting...'
             %dt Instances:
             %dd.status = model.status
             %dt Size:
