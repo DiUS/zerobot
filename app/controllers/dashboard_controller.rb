@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user! if Rails.configuration.auth_enabled
 
   def index
     params[:project_name] = ENV['PROJECT_NAME']
