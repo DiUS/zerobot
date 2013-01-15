@@ -30,6 +30,7 @@ class Aws::StacksController < ApplicationController
     full_name = params[:parameters][:EnvironmentName]
     full_name.concat("-#{params[:parameters][:UniqueName]}") if params[:parameters][:EnvironmentName] == 'dev'
     params[:parameters].delete(:UniqueName)
+    params[:parameters].delete(:EnvironmentName) if params[:parameters][:EnvironmentName] == 'ci'
     result = Dupondius::Aws::CloudFormation::Stack.create(params[:templateName],
                                                      full_name,
                                                      Dupondius.config.project_name,

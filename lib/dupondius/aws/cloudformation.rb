@@ -137,7 +137,8 @@ module Dupondius; module Aws; module CloudFormation
                         ProjectName: project_name,
                         DBName: "ci",
                         DBUsername: "ciuser",
-                        DBPassword: "password"}.merge(parameters))
+                        DBPassword: "password",
+                        EnvironmentName: "ci"}.merge(parameters))
     end
 
 

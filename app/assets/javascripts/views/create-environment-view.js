@@ -72,6 +72,14 @@ define([
                 this.$('.form-horizontal').append(formField);
             }
 
+            if (this.options.name === 'ci') {
+                var formField = haml.compileHaml({source: formFieldTemplate})({
+                    parameter_key: 'EnvironmentName',
+                    description: 'Environment name'
+                });
+                this.$('.form-horizontal').append(formField);
+            }
+
             if (!this.model.isNew()) {
                 var formField = haml.compileHaml({source: formFieldTemplate})({
                     parameter_key: 'TemplateName'
@@ -144,6 +152,10 @@ define([
 
                 if (this.$('#UniqueName').length !== 0) {
                     attrs['UniqueName'] = this.$('#UniqueName').val();
+                }
+
+                if (this.options.name === 'ci') {
+                    attrs['EnvironmentName'] = this.$('#EnvironmentName').val();
                 }
 
                 this.model.set({templateName: this.stackTemplate.get('id')}, {silent: true});

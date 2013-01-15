@@ -3,7 +3,10 @@
         %h3 dev
     - else {
         %h3
-            %a.environment-name{target: '_blank', href: 'http://' + model.tags['dupondius:environment'] + '.' + model.tags['dupondius:project'] + '.zerobot.io/'}= model.tags['dupondius:environment']
+            - if (_(model.tags['dupondius:environment']).startsWith('ci')) {
+                %a.environment-name{target: '_blank', href: 'http://' + model.tags['dupondius:environment'] + '.' + model.tags['dupondius:project'] + '.zerobot.io:8080/'}= model.tags['dupondius:environment']
+            - else {
+                %a.environment-name{target: '_blank', href: 'http://' + model.tags['dupondius:environment'] + '.' + model.tags['dupondius:project'] + '.zerobot.io/'}= model.tags['dupondius:environment']
 %div.environment-information
     %dl.dl-horizontal
         - if (model.tags['dupondius:environment'] === 'dev') {
