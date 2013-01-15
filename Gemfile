@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.7'
+gem 'rails', '3.2.11'
 gem 'bigdecimal'
 gem 'foreman-export-initscript', :git => 'git://github.com/Draiken/foreman-export-initscript.git'
 gem 'pivotal-tracker'
