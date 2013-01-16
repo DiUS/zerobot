@@ -78,11 +78,29 @@ define([
         },
 
         renderBuild: function () {
-            var canCommit = this.buildsCollection.all(function (build) {
-                return build.canCommit();
+            var status = 'passing';
+
+            var build = this.buildsCollection.find(function (build) {
+                return build.get('niceName') === 'Build';
             });
 
-            this.buildView.appendTemplate(buildPassingTemplate, new Backbone.Model({canCommit: canCommit}));
+            var acceptance = this.buildsCollection.find(function (build) {
+                return build.get('niceName') === 'Acceptance';
+            });
+
+            if (build.get('lastCompletedBuild') === null) {
+                status = 'building';
+            }
+
+            if (acceptance.get('lastCompletedBuild') === null) {
+                status = 'building';
+            }
+
+            if (build.isCurrentlyFailing() || acceptance.isCurrentlyFailing()) {
+                status = 'failing';
+            }
+
+            this.buildView.appendTemplate(buildPassingTemplate, new Backbone.Model({status: status}));
         }
     });
 });

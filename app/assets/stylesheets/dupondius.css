@@ -279,6 +279,15 @@ p.dupondius-blurb {
     margin-top: 17px;
   }
 
+  .form-center {
+    margin: 0 auto;
+    width: 600px;
+  }
+
+  .form-center .control-label {
+    width: 145px;
+  }
+
   /*
    * Selectable Grid styles
    */

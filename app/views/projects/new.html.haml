@@ -34,11 +34,6 @@
             %img.avatar{:src => @user.avatar_url}
             %strong
               =@user.login
-          %p 
-            %small
-              Currently we supply template repositories to get your started. You will need to fork one of these repositories before continuing. We plan to extend support past our own template repositories in the future.  
-              %a{:href => 'http://github.com/DiUS/zerobot/wiki/Zerobot-Template-Repositories', :target => '_blank'} 
-                You can fork one of our existing template repositories here
           %p
             %select#application-name
               %option Choose a repository
@@ -55,6 +50,11 @@
             %a#page-one-done.btn.btn-primary.btn-xlarge{:href => '#'}
               %i.icon-arrow-down.icon-white
               Get Started
+          %p 
+            %small
+              Dont want to use your own repository? We have a template repository 
+              %a{:href => 'http://github.com/DiUS/zerobot/wiki/Zerobot-Template-Repositories', :target => '_blank'} 
+                you can fork
           %p.end
             %small
               %a{:href => "/source/new"}
@@ -66,14 +66,26 @@
     %div#aws-details.page.hidden{'data-step' => "true",  'data-submit' => "aws-done", 'data-next' => "region", 'data-navigation' => "nav-application-aws"}
       %div.page-container
         %h1 AWS Authorisation
-        %p &nbsp;
         %p
           We also need to get your aws credentials that you want to create the new environment under.
-        %form
-          %div.controls.controls-row
-            %input#aws-access-key-id.input-xlarge.span3{:type=>"text", :placeholder=>"Enter your aws access key id"}
-            %input#aws-secret-access-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws secret access key"}
-            %input#aws-private-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws private key name"}
+        %form.form-horizontal.form-center
+          %div.control-group
+            %label.control-label{:for => 'aws-access-key-id'}
+              AWS Access Key Id: 
+            %div.controls
+              %input#aws-access-key-id.input-xlarge.span5{:type=>"text", :placeholder=>"Enter your aws access key id"}  
+
+          %div.control-group
+            %label.control-label{:for => 'aws-secret-access-key'}
+              AWS Secret Access Key: 
+            %div.controls
+              %input#aws-secret-access-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws secret access key"}
+
+          %div.control-group
+            %label.control-label{:for => 'aws-private-key'}
+              AWS EC2 Key Pair Name: 
+            %div.controls
+              %input#aws-private-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws ec2 key pair name"}
         %p
           %a#aws-done.btn.btn-primary.btn-xlarge{:href => '#'}
             %i.icon-arrow-down.icon-white
