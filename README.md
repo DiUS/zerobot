@@ -40,11 +40,17 @@ The dashboard provides an easy to use interface to AWS, giving teams the flexibi
 
 ### Customising environments
 
-Environments leverage AWS CloudFormation to provide an easy and flexible way to manage environments. CloudFormation templates live on S3 and are completely customisable. The dashboard takes the CloudFormation templates from S3 and presents them to the team member using the dashboard. Team members can then provide the parameters the template needs and create an environment. Teams can customise these templates and create ANY type of topology they wish!
+Environments leverage AWS CloudFormation to provide an easy and flexible way to manage environments. 
+
+CloudFormation templates live on S3 and are completely customisable. The dashboard takes the CloudFormation templates from S3 and presents them to the team member using the dashboard. Team members can then provide the parameters the template needs and create an environment. 
+
+Teams can customise these templates and create ANY type of topology they wish!
 
 ## Continuous Integration
 
-Zerobot provides continuous integration out of the box, giving teams a build pipeline all the way to Production. Teams can also deploy specific versions of their code to ANY environment they created using the dashboard. Teams can customise the build pipeline if they wish to.
+Zerobot provides continuous integration out of the box, giving teams a build pipeline all the way to Production. 
+
+Teams can also deploy specific versions of their code to ANY environment they created using the dashboard. Teams can customise the build pipeline if they wish to.
 
 # Developers getting started
 
