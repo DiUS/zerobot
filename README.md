@@ -13,7 +13,7 @@ Zerobot allows teams to create environments in a flexible manner, leveraging the
 * AWS (CloudFormation, EC2, S3, Route 53)
 * Github
 * Jenkins
-* Built with Rubyon Rails, Backbone, jQuery, Twitter Bootstrap
+* Built with Ruby on Rails, Backbone, jQuery, Twitter Bootstrap
 
 # The Launchpad
 
