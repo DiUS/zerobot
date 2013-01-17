@@ -28,3 +28,6 @@ deployer.pem
 
 .rbenv-version
 .pry_history
+
+# AWS creds
+zerobot-deployer.pem
