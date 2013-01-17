@@ -101,6 +101,7 @@ namespace :foreman do
       "echo \"AWS_REGION=#{ENV['AWS_REGION']}\" >> ./tmp/env",
       "echo \"DEMO_ENABLED=#{ENV['DEMO_ENABLED']}\" >> ./tmp/env",
       "echo \"AUTH_ENABLED=#{ENV['AUTH_ENABLED']}\" >> ./tmp/env",
+      "echo \"OMNIAUTH_DOMAIN=#{ENV['OMNIAUTH_DOMAIN']}\" >> ./tmp/env",
 
       # Push the database environment variables into the app
       "cat /etc/default/app >> ./tmp/env",
