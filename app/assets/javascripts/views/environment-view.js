@@ -115,6 +115,11 @@ define([
             if (confirm("Are you sure you want to remove this environment?")) {
                 this.fadeOut();
                 var stack = new Stack({id: this.model.get('tags')['aws:cloudformation:stack-name']});
+                this.bindTo(stack, 'error', function (model, xhr) {
+                    alert(JSON.parse(xhr.responseText).error);
+                    location.reload();
+                });
+
                 this.bindTo(stack, 'destroy', function () {
                     this.keepChecking();
                 });
@@ -182,6 +187,12 @@ define([
 
             if (confirm("Are you sure you want to " + action + " this environment?")) {
                 this.fadeOut();
+
+                this.bindTo(this.model, 'error', function (model, xhr) {
+                    alert(JSON.parse(xhr.responseText).error);
+                    location.reload();
+                });
+
                 this.model.save({
                     status: status || action
                 });

@@ -7,6 +7,10 @@
 	color: #E9E9E9 !important;
 }
 
+.navbar .brand { 
+    padding: 8px 70px 12px 0;
+}
+
 .project-brand {
 	padding: 25px 25px 12px 25px !important;
 }
