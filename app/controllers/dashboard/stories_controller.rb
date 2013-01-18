@@ -1,6 +1,6 @@
 require 'pivotal_tracker'
 
-class Dashboard::StoriesController < ActionController::Base
+class Dashboard::StoriesController < ApplicationController
 
   def show
     one_and_only = Dashboard::PivotalTrackerConfiguration.first
