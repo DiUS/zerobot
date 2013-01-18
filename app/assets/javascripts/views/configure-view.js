@@ -10,6 +10,10 @@ define([
 
         className: 'environments',
 
+        events: {
+            'click #refresh-environments': 'refreshEnvironments'
+        },
+
         regions: {
             'us-east-1': 'US East (Virginia)',
             'us-west-1': 'US West (North California)',
@@ -42,6 +46,11 @@ define([
             });
         },
 
+        refreshEnvironments: function () {
+            location.reload();
+            return false;
+        },
+
         postRender: function () {
             var view = new WidgetView({
                  heading: 'Environments - ' + this.regions[awsRegion],
@@ -49,6 +58,7 @@ define([
             }).render();
             view.appendTemplate(template);
             view.$('.widget-content').addClass('row');
+            view.$('.widget-header h3').append('<div class="widget-toolbar"><a id="refresh-environments" class="btn configure-newrelic-btn" href="#"><i class="icon-refresh"/></a></div>');
             this.renderEnvironments();
             this.$el.html(view.el);
         },
@@ -60,6 +70,7 @@ define([
         },
 
         renderEnvironments: function () {
+
             this.collection.each(function (environment) {
                 this.bindEnvironment(environment);
             }, this);
@@ -99,6 +110,7 @@ define([
             if (view.model.has('name')) {
                 view.availableModel = view.model;
                 view.model = environment;
+                view.getStack();
             }
 
             if (view.instancesCollection === undefined) {

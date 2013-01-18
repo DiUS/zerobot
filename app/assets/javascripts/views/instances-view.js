@@ -18,9 +18,12 @@ define([
         },
 
         postRender: function () {
+            this.$el.removeClass('loading');
             this.collection.each(function (instance) {
-                var view = new InstanceView({model: instance}).render();
-                this.$('.table').append(view.el);
+                if (instance.status !== 'terminated') {
+                    var view = new InstanceView({model: instance}).render();
+                    this.$('.table').append(view.el);
+                }
             }, this);
         }
     });

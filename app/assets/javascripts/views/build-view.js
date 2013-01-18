@@ -11,31 +11,11 @@ define([
 
         template: template,
 
-        events: {
-            'click .build-now': 'buildNow'
-        },
-
         renderSpinner: function () {
             if (this.model.get('color').indexOf('anim') !== -1) {
                 this.$('.loading').removeClass('off');
             } else {
                 this.$('.loading').addClass('off');
-            }
-        },
-
-        postRender: function () {
-            this.renderQueued();
-        },
-
-        renderQueued: function () {
-            if (this.model.get('inQueue') === true) {
-                if (this.$('.build-now .queued').length === 0) {
-                    this.$('.build-now i').hide();
-                    this.$('.build-now').append(this.make('span', {class: 'queued'}, 'Queued'));
-                }
-            } else {
-                this.$('.build-now i').show();
-                this.$('.build-now .queued').remove();
             }
         },
 
@@ -46,8 +26,6 @@ define([
                     .removeClass('build-blue build-blue_anime build-red build-red_anime build-grey build-grey_anime')
                     .addClass('build-' + model.get('color'));
             }
-
-            this.renderQueued();
 
             if (this.model.isCurrentlyFailing()) {
                 var lastFailed = new LastFailed({displayName: this.model.get('displayName')});
@@ -74,24 +52,6 @@ define([
             }
 
             this.renderSpinner();
-        },
-
-        buildNow: function (event) {
-            if (this.model.get('inQueue') === true) {
-                return false;
-            }
-
-            var BuildNow = Backbone.Model.extend({
-                url: $(event.currentTarget).attr('href'),
-                sync: function(method, model, options) {  
-                    options.dataType = 'jsonp';  
-                    options.jsonp = 'jsonp';
-                    return Backbone.sync(method, model, options);  
-                } 
-            });
-
-            new BuildNow().save();
-            return false;
         }
     });
 });

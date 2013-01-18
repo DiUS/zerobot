@@ -27,4 +27,11 @@ deployer.pem
 .env
 
 .rbenv-version
+.rvmrc
 .pry_history
+
+# AWS creds
+zerobot-deployer.pem
+
+# Sublime project file
+project.json

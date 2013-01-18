@@ -37,7 +37,15 @@
 }
 
 .environment-information .dl-horizontal {
-    padding-left: 10px;
+    margin-bottom: 5px;
+}
+
+.environment-information .dl-horizontal dt {
+    width: 95px;
+}
+
+.environment-information .dl-horizontal dd {
+    margin-left: 105px;
 }
 
 .environment-description {
@@ -70,6 +78,6 @@
     position: absolute;
 }
 
-.modal-body {
+.environments .modal-body {
     min-height:155px;
 }

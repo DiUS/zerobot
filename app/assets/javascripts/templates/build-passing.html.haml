@@ -1,6 +1,9 @@
-- if (canCommit === true) {
+- if (status === 'passing') {
     %div.build-passing
         %h2 Commit Build is passing.
-- else {
+- else if (status === 'failing') {
     %div.build-failing
         %h2 Commit Build is failing.
+- else {
+    %div.build-building
+        %h2 Initial Commit Build running.

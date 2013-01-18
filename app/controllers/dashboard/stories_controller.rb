@@ -1,6 +1,6 @@
 require 'pivotal_tracker'
 
-class Dashboard::StoriesController < ActionController::Base
+class Dashboard::StoriesController < ApplicationController
 
   def show
     one_and_only = Dashboard::PivotalTrackerConfiguration.first
@@ -11,6 +11,11 @@ class Dashboard::StoriesController < ActionController::Base
   def create
     one_and_only = Dashboard::PivotalTrackerConfiguration.create!({ :token => params['token'], :project_id => params['project_id'] })
     render :json => iteration(one_and_only)
+  end
+
+  def destroy
+    Dashboard::PivotalTrackerConfiguration.delete_all
+    render :json => {}
   end
 
   def velocity

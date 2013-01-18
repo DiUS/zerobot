@@ -11,9 +11,18 @@ $(document).ready(function () {
         if (response.status === 'CREATE_COMPLETE') {
             $('#loading-image').remove();
             $('#please-wait').remove();
-            $('#waiting .page-container').append('<h2>Your environment is ready for action</h2><h1><a href="' + response.output.value + '" target="_blank">' + response.output.value + '</a></h1>');
+            $('#waiting .page-container h1').text('Your environment is ready for action');
+            $('#waiting .page-container').append('<h2><a href="' + response.output.value + '" target="_blank">' + response.output.value + '</a></h2>');
             $('#waiting .page-container').append('<p>Done with this environment? <a id="create-another-link" href="">Create another</a></p>');
             return;
+        } else if (response.status === 'ROLLBACK_COMPLETE' || response.status === 'CREATE_FAILED') {
+            $('#loading-image').remove();
+            $('#please-wait').remove();
+            $('#waiting .page-container h1').text('Your environment failed to be created');
+            $('#waiting .page-container').append('<p>There was an issue creating your environment.</p>');
+            $('#waiting .page-container').append('<p>Please ensure that the AWS credentials you have provided are correct.</p>');
+            $('#waiting .page-container').append('<p>If you believe the AWS credentials given are correct, please log into the <a target="_blank" href="https://console.aws.amazon.com/cloudformation/home">AWS Management Console</a> to investigate further.</p>');
+            $('#waiting .page-container').append('<p>When you are confident that you can attempt to create your environments again, <a id="create-another-link" href="">click here</a>.</p>');
         } else {
           setTimeout(function () {
             $.ajax({
@@ -36,6 +45,17 @@ $(document).ready(function () {
 
         $('#please-wait').append('<div id="loading-image"><img src="/assets/ajax-loading.gif" alt="Loading..." /></div>');
     };
+
+    if ($.cookie('project_id') !== null) {
+        // show to last step
+        $('#page1').addClass('hidden');
+        $('#waiting').removeClass('hidden');
+        inifiniteCheck($.cookie('project_id'));
+
+        var data = JSON.parse($.cookie('project_data'));
+
+        return;
+    }
 
     $.scrollingWizard({
         steps: [{
@@ -92,6 +112,10 @@ $(document).ready(function () {
             }
         }],
         finished: function () {
+            if ($.cookie('project_id') !== null) {
+                return;
+            }
+
             var applicationName = $('#application-name option:selected').text();
             var applicationUrl = $('#application-name option:selected').val();
             var data = {project: {
@@ -113,12 +137,23 @@ $(document).ready(function () {
                 inifiniteCheck(response.id);
             };
 
+            var postError = function(xhr, responseText) {
+                debugger;
+                $('#loading-image').remove();
+                $('#please-wait').remove();
+                $('#waiting .page-container h1').text('Your environment failed to be created');
+                $('#waiting .page-container').append('<p>There was an issue creating your environment.</p>');
+                $('#waiting .page-container').append('<p>' + xhr.responseText + '</p>');
+                $('#waiting .page-container').append('<p>When you are confident that you can attempt to create your environments again, <a id="create-another-link" href="">click here</a>.</p>');
+            };
+
             $.ajax({
                 type: 'POST',
                 url: '/projects',
                 contentType: "application/json",
                 data: JSON.stringify(data),
-               success: postSuccess
+                success: postSuccess ,
+                error: postError
             });
         }
     });

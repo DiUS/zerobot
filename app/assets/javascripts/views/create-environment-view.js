@@ -33,6 +33,8 @@ define([
             });
 
             this.bindTo(this.model, 'error', function (model, errors) {
+                this.$('.confirm').removeClass('disabled').text('Continue');
+
                 if (errors.responseText) {
                     this.populateServerErrors(errors.responseText);
                 } else {
@@ -66,6 +68,14 @@ define([
                 var formField = haml.compileHaml({source: formFieldTemplate})({
                     parameter_key: 'UniqueName',
                     description: 'Unique name'
+                });
+                this.$('.form-horizontal').append(formField);
+            }
+
+            if (this.options.name === 'ci') {
+                var formField = haml.compileHaml({source: formFieldTemplate})({
+                    parameter_key: 'EnvironmentName',
+                    description: 'Environment name'
                 });
                 this.$('.form-horizontal').append(formField);
             }
@@ -134,6 +144,7 @@ define([
                 this.stackTemplate.fetch();
                 this.fadeOut();
             } else {
+                this.$('.confirm').addClass('disabled').text('...');
                 var attrs = {};
                 _(this.stackTemplate.get('parameters')).each(function (parameter) {
                     attrs[parameter.parameter_key] = this.$('#'+ parameter.parameter_key).val();
@@ -143,8 +154,13 @@ define([
                     attrs['UniqueName'] = this.$('#UniqueName').val();
                 }
 
+                if (this.options.name === 'ci') {
+                    attrs['EnvironmentName'] = this.$('#EnvironmentName').val();
+                }
+
                 this.model.set({templateName: this.stackTemplate.get('id')}, {silent: true});
                 this.model.set({parameters: attrs}, {silent: true});
+
                 this.model.save();
             }
 

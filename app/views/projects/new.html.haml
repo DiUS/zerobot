@@ -24,7 +24,7 @@
           %p Welcome to the Launchpad!
           %p &nbsp;
           %p In order to get the application up and running quickly, first we need to authorise access to your github account.
-          %p When we have this access, we can create and push your new app directly to your github account and from here deploy all the way to production using the customisable dupondi.us continuous delivery solution.
+          %p When we have this access, we can create and push your new app directly to your github account and from here deploy all the way to production using the customisable Zerobot continuous delivery solution.
           %a.btn.btn-success.btn-xlarge{:href=> "/source/new"}
             %i.icon-arrow-right.icon-white Authorise me please
         - else
@@ -35,8 +35,14 @@
             %strong
               =@user.login
           %p
-            =select_tag "application-name", options_for_select(@user.repos.map{|repo| [repo[:name], repo[:html_url]]}.insert(0, ['Choose a repository','']))
-
+            %select#application-name
+              %option Choose a repository
+              %optgroup{:label => 'User Repositories'}
+                - @user.get_user_repos.each do |repo|
+                  %option{:value => repo['html_url']}=repo['name']
+              %optgroup{:label => 'Org Repositories'}
+                - @user.get_org_repos.each do |repo|
+                  %option{:value => repo['html_url']}=repo['name']
           %p
             %input#application-token{:type=> "hidden", :value=> @user.token}
             %input#github-account{ :type=> "hidden", :value=> @user.login}
@@ -44,22 +50,42 @@
             %a#page-one-done.btn.btn-primary.btn-xlarge{:href => '#'}
               %i.icon-arrow-down.icon-white
               Get Started
-          %hr
-            %a{:href => "/source/new"}
-              REAUTHORISE ME PLEASE, I WANT TO USE A DIFFERENT GITHUB ACCOUNT
-          %p (You will need to log out of your github account first)
+          %p 
+            %small
+              Dont want to use your own repository? We have a template repository 
+              %a{:href => 'http://github.com/DiUS/zerobot/wiki/Zerobot-Template-Repositories', :target => '_blank'} 
+                you can fork
+          %p.end
+            %small
+              %a{:href => "/source/new"}
+                REAUTHORISE ME PLEASE, I WANT TO USE A DIFFERENT GITHUB ACCOUNT
+              %br
+              %span 
+                (You will need to log out of your github account first)
 
     %div#aws-details.page.hidden{'data-step' => "true",  'data-submit' => "aws-done", 'data-next' => "region", 'data-navigation' => "nav-application-aws"}
       %div.page-container
         %h1 AWS Authorisation
-        %p &nbsp;
         %p
           We also need to get your aws credentials that you want to create the new environment under.
-        %form
-          %div.controls.controls-row
-            %input#aws-access-key-id.input-xlarge.span3{:type=>"text", :placeholder=>"Enter your aws access key id"}
-            %input#aws-secret-access-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws secret access key"}
-            %input#aws-private-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws private key name"}
+        %form.form-horizontal.form-center
+          %div.control-group
+            %label.control-label{:for => 'aws-access-key-id'}
+              AWS Access Key Id: 
+            %div.controls
+              %input#aws-access-key-id.input-xlarge.span5{:type=>"text", :placeholder=>"Enter your aws access key id"}  
+
+          %div.control-group
+            %label.control-label{:for => 'aws-secret-access-key'}
+              AWS Secret Access Key: 
+            %div.controls
+              %input#aws-secret-access-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws secret access key"}
+
+          %div.control-group
+            %label.control-label{:for => 'aws-private-key'}
+              AWS EC2 Key Pair Name: 
+            %div.controls
+              %input#aws-private-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws ec2 key pair name"}
         %p
           %a#aws-done.btn.btn-primary.btn-xlarge{:href => '#'}
             %i.icon-arrow-down.icon-white
@@ -111,5 +137,3 @@
         %h1 Your environments are being created
         %p#please-wait
           Please wait for a moment...
-        %a#create-another-link{:href=>"#"}
-          Start again

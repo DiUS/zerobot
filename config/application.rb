@@ -73,5 +73,8 @@ module Dashboard
     # Demo mode
     config.demo_enabled = ENV['DEMO_ENABLED'] && ENV['DEMO_ENABLED'].downcase == 'true' ? true : false
 
+    # Domain Authentication with Google apps
+    config.auth_enabled = ENV['AUTH_ENABLED'] && ENV['AUTH_ENABLED'].downcase == 'true' ? true : false
+
   end
 end

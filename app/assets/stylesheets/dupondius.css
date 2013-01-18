@@ -23,6 +23,16 @@
   src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3bO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
 }
 
+#page1 small {
+  font-size: 14px;
+}
+
+#page1 .end {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 .large-font {
   color: #424242;
   font-size: 112px !important;
@@ -51,11 +61,8 @@ html, body, input, h1, button {
   font-family: 'Open Sans', sans-serif;
 }
 
-body.launchpad hr {
-  padding-top: 60px;
-}
-
-body.launchpad select {
+body.launchpad #application-name {
+  margin-top: 25px;
   height: 60px;
   font-size: 24px;
 }
@@ -72,10 +79,6 @@ p.main-logo img {
 
 img.avatar {
   height: 25px;
-}
-
-h1.launchpad {
-  padding-bottom: 50px;
 }
 
 p.main-logo img {
@@ -274,6 +277,15 @@ p.dupondius-blurb {
 
   #page4 .btn {
     margin-top: 17px;
+  }
+
+  .form-center {
+    margin: 0 auto;
+    width: 600px;
+  }
+
+  .form-center .control-label {
+    width: 145px;
   }
 
   /*

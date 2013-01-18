@@ -3,14 +3,20 @@
         %h3 dev
     - else {
         %h3
-            %a.environment-name{target: '_blank', href: 'http://' + model.tags['dupondius:environment'] + '.' + model.tags['dupondius:project'] + '.dupondi.us/'}= model.tags['dupondius:environment']
+            - if (_(model.tags['dupondius:environment']).startsWith('ci')) {
+                %a.environment-name{target: '_blank', href: 'http://' + model.tags['dupondius:environment'] + '.' + model.tags['dupondius:project'] + '.zerobot.io:8080/'}= model.tags['dupondius:environment']
+            - else {
+                %a.environment-name{target: '_blank', href: 'http://' + model.tags['dupondius:environment'] + '.' + model.tags['dupondius:project'] + '.zerobot.io/'}= model.tags['dupondius:environment']
 %div.environment-information
     %dl.dl-horizontal
         - if (model.tags['dupondius:environment'] === 'dev') {
             %dt Instance Count:
             %dd.status = instances.length
         - else {
-            %dt Currently:
+            - if (!_(model.tags['dupondius:environment']).startsWith('dev')) {
+                %dt Status:
+                %dd.stack-status = stack.status || 'waiting...'
+            %dt Instances:
             %dd.status = model.status
             %dt Size:
             %dd.size = model.instance_type
@@ -23,13 +29,13 @@
                 %button.instances.btn.btn-primary View Instances
         - else {
             - if (model.status === 'stopped') {
-                %button.start.btn.btn-large.btn-success Start Environment
+                %button.start.btn.btn-large.btn-success Start Instances
             - if (model.status === 'stopping') {
-                %button.stop.btn.btn-large.btn-danger.disabled Stop Environment
+                %button.stop.btn.btn-large.btn-danger.disabled Stop Instances
             - if (model.status === 'pending') {
-                %button.start.btn.btn-large.btn-success.disabled Start Environment
+                %button.start.btn.btn-large.btn-success.disabled Start Instances
             - if (model.status === 'running') {
-                %button.stop.btn.btn-large.btn-danger Stop Environment
+                %button.stop.btn.btn-large.btn-danger Stop Instances
             %br
             %button.info.btn.btn-small.btn-info Info
             - if (model.status !== 'stopping' && model.status !== 'pending' && model.status !== 'shutting_down') {

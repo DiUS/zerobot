@@ -68,10 +68,7 @@ define([
         keepChecking: function () {
             var event = this.bindTo(this.model, 'change', function () {
                 if (this.model.get('status') === 'terminated') {
-                    this.model = this.availableModel;
-                    this.render().fadeIn();
-                    clearInterval(this.interval);
-                    event.unbind();
+                    location.reload();
                 }
 
                 if (!_(['pending', 'stopping', 'shutting_down']).include(this.model.get('status'))) {

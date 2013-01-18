@@ -23,13 +23,14 @@ class Aws::StacksController < ApplicationController
   def update
     stack = Dupondius::Aws::CloudFormation::Stack.find(params[:id])
     stack.update(params[:parameters])
-    respond_with(stack)
+    render :json => {:success => true}, :status => 200
   end
 
   def create
     full_name = params[:parameters][:EnvironmentName]
     full_name.concat("-#{params[:parameters][:UniqueName]}") if params[:parameters][:EnvironmentName] == 'dev'
     params[:parameters].delete(:UniqueName)
+    params[:parameters].delete(:EnvironmentName) if params[:parameters][:EnvironmentName] == 'ci'
     result = Dupondius::Aws::CloudFormation::Stack.create(params[:templateName],
                                                      full_name,
                                                      Dupondius.config.project_name,

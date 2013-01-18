@@ -30,15 +30,45 @@ define([
 
         view: null,
 
+        getStack: function () {
+            this.stack = new Stack({id: this.model.get('tags')['aws:cloudformation:stack-name']});
+            this.bindTo(this.stack, 'change', function () {
+                if (!this.$el.hasClass('loading')) {
+                    this.render();
+                }
+            });
+
+            this.bindTo(this.stack, 'error', function () {
+                // probably a 404, lets refresh
+                location.reload();
+            });
+
+            var self = this;
+
+            setInterval(function () {
+                self.stack.fetch();
+            }, 30000);
+
+            this.stack.fetch();
+        },
+
         serialize: function () {
             var instances = this.instancesCollection;
             if (instances !== undefined) {
                 instances = instances.toJSON();
             }
 
+            var stack;
+            if (this.stack === undefined) {
+                stack = {status: 'UNKNOWN'};
+            } else {
+                stack = this.stack.toJSON();
+            }
+
             return {
                 model: this.model.toJSON(),
-                instances: instances
+                instances: instances,
+                stack: stack
             };
         },
 
@@ -85,6 +115,11 @@ define([
             if (confirm("Are you sure you want to remove this environment?")) {
                 this.fadeOut();
                 var stack = new Stack({id: this.model.get('tags')['aws:cloudformation:stack-name']});
+                this.bindTo(stack, 'error', function (model, xhr) {
+                    alert(JSON.parse(xhr.responseText).error);
+                    location.reload();
+                });
+
                 this.bindTo(stack, 'destroy', function () {
                     this.keepChecking();
                 });
@@ -152,6 +187,12 @@ define([
 
             if (confirm("Are you sure you want to " + action + " this environment?")) {
                 this.fadeOut();
+
+                this.bindTo(this.model, 'error', function (model, xhr) {
+                    alert(JSON.parse(xhr.responseText).error);
+                    location.reload();
+                });
+
                 this.model.save({
                     status: status || action
                 });
@@ -160,25 +201,10 @@ define([
         },
 
         keepChecking: function () {
-            var event = this.bindTo(this.model, 'change', function () {
-                this.render().fadeIn();
-                if (this.model.get('status') === 'terminated') {
-                    this.model = this.availableModel;
-                    this.renderCreateEnvironment().fadeIn();
-                    clearInterval(this.interval);
-                    event.unbind();
-                }
-
-                if (!_(['pending', 'stopping', 'shutting_down']).include(this.model.get('status'))) {
-                    clearInterval(this.interval);
-                    event.unbind();
-                }
-            });
-
-            var view = this;
-            this.interval = setInterval(function () {
-                view.model.fetch();
-            }, 10000);
+            this.model.fetch();
+            setTimeout(function () {
+                location.reload();
+            }, 40000);
         }
     });
 })

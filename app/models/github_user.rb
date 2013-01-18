@@ -25,6 +25,11 @@ class GithubUser
       Yajl.load(RestClient.get("https://api.github.com/orgs/#{org['login']}/repos", :params => {:access_token => @token}))
     end.flatten
   end
+
+  def get_user_repos
+    @repo_info ||= Yajl.load(RestClient.get("https://api.github.com/user/repos", :params => {:access_token => @token, :type => 'owner'}))
+  end
+  
   private
 
   def get_user
@@ -34,9 +39,4 @@ class GithubUser
   def get_user_orgs
     @user_orgs ||= Yajl.load(RestClient.get("https://api.github.com/user/orgs", :params => {:access_token => @token}))
   end
-
-  def get_user_repos
-    @repo_info ||= Yajl.load(RestClient.get("https://api.github.com/user/repos", :params => {:access_token => @token}))
-  end
-
 end

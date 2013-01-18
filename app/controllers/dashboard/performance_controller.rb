@@ -1,6 +1,6 @@
 require 'httparty'
 
-class Dashboard::PerformanceController < ActionController::Base
+class Dashboard::PerformanceController < ApplicationController
 
   respond_to :json
 

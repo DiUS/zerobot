@@ -105,7 +105,8 @@ i.icon-float-right {
 }
 
 #build-widget-wrapper .build-passing h2,
-#build-widget-wrapper .build-failing h2 {
+#build-widget-wrapper .build-failing h2,
+#build-widget-wrapper .build-building h2 {
     padding-top: 40px;
 }
 
@@ -115,6 +116,16 @@ i.icon-float-right {
     text-transform: uppercase;
 }
 
+#build-widget-wrapper .build-building {
+    background-color: #B5BDB7;
+    height: 100%;
+    text-transform: uppercase;
+}
+
 #performance-widget iframe {
   width: 100%
+}
+
+.widget-content .content {
+    height: 100%;
 }
