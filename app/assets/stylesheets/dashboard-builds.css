@@ -70,12 +70,6 @@
     text-align: left;
 }
 
-.builds .build-pipeline .build-now {
-    text-decoration: none;
-    display: inline-block;
-    padding: 10px 15px;
-}
-
 .builds .build-pipeline .icon-arrow-down {
     position: absolute;
     left: 120px;
