@@ -22,6 +22,7 @@
         var githubUser = '#{params[:project_github_user]}';
         var githubProject = '#{params[:project_github_project]}';
         var awsRegion = '#{params[:aws_region]}';
+        var projectZone = '#{ENV["ZONE"]}';
     %script{ :type => "text/javascript", :src => "/assets/libs/require.js", 'data-main' => '/assets/main.js' }
     / %script{ :type => "text/javascript", :src => "/assets/concatenated-modules.js" }
   %body
