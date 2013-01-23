@@ -2,13 +2,14 @@ define([
     'backbone',
     'models/build'
 ], function (Backbone, Build) {
+
     return Backbone.Collection.extend({
 
         model: Build,
 
         firstInPipeline: null,
 
-        url: 'http://ci.' + projectName + '.zerobot.io:8080/api/json?depth=1',
+        url: 'http://ci.' + projectName + '.' + projectZone +':8080/api/json?depth=1',
 
         parse: function(response) {
             return response.jobs;
