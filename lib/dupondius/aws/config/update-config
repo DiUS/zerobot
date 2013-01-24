@@ -17,7 +17,7 @@ while read l; do
   else
     echo $l >> /etc/default/app
   fi
-done < <(curl -s http://dashboard.$PROJECT_NAME.zerobot.io/dashboard/configurations/export)
+done < <(curl -s http://dashboard.$PROJECT_NAME.$ZONE/dashboard/configurations/export)
 
 # rewrite the export
 sed -i s/^export\ .*//g /etc/default/app
