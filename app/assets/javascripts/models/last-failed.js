@@ -5,7 +5,7 @@ define([
     return Backbone.Model.extend({
 
         url: function () {
-            return 'http://ci.' + projectName + '.zerobot.io:8080/job/' + this.get('displayName') + '/lastFailedBuild/api/json';
+            return 'http://ci.' + projectName + '.' + projectZone + ':8080/job/' + this.get('displayName') + '/lastFailedBuild/api/json';
         },
 
         sync: function(method, model, options) {
