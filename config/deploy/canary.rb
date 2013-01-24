@@ -1,4 +1,4 @@
-set :domain,      "canary.#{ENV['PROJECT_NAME']}.zerobot.io"
+set :domain,      "canary.#{ENV['PROJECT_NAME']}.#{ENV['ZONE']}"
 set :rails_env,   "canary"
 set :app_env,     "canary"
 set :branch,      ENV["PIPELINE_VERSION"] || 'master'
