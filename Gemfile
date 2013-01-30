@@ -49,10 +49,8 @@ end
 gem "simple_form"
 
 group :development, :test do
-  #gem "capybara"
-  #gem "capybara-webkit"
-  gem "rspec-rails"
-  gem "sqlite3"
+  gem 'rspec-rails'
+  gem 'sqlite3'
 
   gem 'jasmine'
   gem 'jasmine-headless-webkit'
@@ -70,8 +68,8 @@ group :test do
 end
 
 group :assets do
-  gem "twitter-bootstrap-rails"
-  gem "therubyracer"
+  gem 'twitter-bootstrap-rails'
+  gem 'therubyracer'
 end
 
 gem 'unicorn'
