@@ -26,8 +26,7 @@
     },
     "HostedZone" : {
       "Description" : "The DNS name of an existing Amazon Route 53 hosted zone",
-      "Type" : "String",
-      "Default" : "zerobot.io"
+      "Type" : "String"
     },
     "AwsAccessKey" : {
       "Description" : "Your AWS access key",

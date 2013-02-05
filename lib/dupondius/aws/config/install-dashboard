@@ -12,18 +12,17 @@ fi
 
 usage() {
   echo ""
-  echo "Usage: $0 tech_stack aws_region project_github_user"
+  echo "Usage: $0 tech_stack aws_region"
   exit 1
 }
 
-if [ -z "$4" ]; then
+if [ -z "$3" ]; then
   usage
 fi
 
 tech_stack=$1
 aws_region=$2
-project_github_user=$3
-key_name=$4
+key_name=$3
 
 # load the app environment variables
 source /etc/default/app
@@ -54,7 +53,6 @@ echo "RAILS_ENV=production" >> /etc/default/app
 echo "ENABLE_LAUNCHPAD=false" >> /etc/default/app
 echo "TECH_STACK=$tech_stack" >> /etc/default/app
 echo "AWS_REGION=$aws_region" >> /etc/default/app
-echo "PROJECT_GITHUB_USER=$project_github_user" >> /etc/default/app
 echo "AUTH_ENABLED=false" >> /etc/default/app
 echo "KEY_NAME=$key_name" >> /etc/default/app
 

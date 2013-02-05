@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
 
   def launch_dashboard
     Dupondius::Aws::CloudFormation::Dashboard.new(self.name, 'Ruby on Rails',
-                                                  self.region, self.github_account, self.aws_key_name, {
+                                                  self.region, self.aws_key_name, {
         InstanceType: 'm1.small',
         DBName: 'dashboard',
         DBUsername: 'dashboard',
