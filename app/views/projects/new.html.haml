@@ -38,10 +38,10 @@
             %select#application-name
               %option Choose a repository
               %optgroup{:label => 'User Repositories'}
-                - @user.get_user_repos.each do |repo|
+                - @user.user_repos.each do |repo|
                   %option{:value => repo['html_url']}=repo['name']
               %optgroup{:label => 'Org Repositories'}
-                - @user.get_org_repos.each do |repo|
+                - @user.org_repos.each do |repo|
                   %option{:value => repo['html_url']}=repo['name']
           %p
             %input#application-token{:type=> "hidden", :value=> @user.token}
@@ -50,17 +50,17 @@
             %a#page-one-done.btn.btn-primary.btn-xlarge{:href => '#'}
               %i.icon-arrow-down.icon-white
               Get Started
-          %p 
+          %p
             %small
-              Dont want to use your own repository? We have a template repository 
-              %a{:href => 'http://github.com/DiUS/zerobot/wiki/Zerobot-Template-Repositories', :target => '_blank'} 
+              Dont want to use your own repository? We have a template repository
+              %a{:href => 'http://github.com/DiUS/zerobot/wiki/Zerobot-Template-Repositories', :target => '_blank'}
                 you can fork
           %p.end
             %small
               %a{:href => "/source/new"}
                 REAUTHORISE ME PLEASE, I WANT TO USE A DIFFERENT GITHUB ACCOUNT
               %br
-              %span 
+              %span
                 (You will need to log out of your github account first)
 
     %div#aws-details.page.hidden{'data-step' => "true",  'data-submit' => "aws-done", 'data-next' => "region", 'data-navigation' => "nav-application-aws"}
@@ -71,19 +71,19 @@
         %form.form-horizontal.form-center
           %div.control-group
             %label.control-label{:for => 'aws-access-key-id'}
-              AWS Access Key Id: 
+              AWS Access Key Id:
             %div.controls
-              %input#aws-access-key-id.input-xlarge.span5{:type=>"text", :placeholder=>"Enter your aws access key id"}  
+              %input#aws-access-key-id.input-xlarge.span5{:type=>"text", :placeholder=>"Enter your aws access key id"}
 
           %div.control-group
             %label.control-label{:for => 'aws-secret-access-key'}
-              AWS Secret Access Key: 
+              AWS Secret Access Key:
             %div.controls
               %input#aws-secret-access-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws secret access key"}
 
           %div.control-group
             %label.control-label{:for => 'aws-private-key'}
-              AWS EC2 Key Pair Name: 
+              AWS EC2 Key Pair Name:
             %div.controls
               %input#aws-private-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws ec2 key pair name"}
         %p
