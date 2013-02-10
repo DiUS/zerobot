@@ -39,10 +39,10 @@
               %option Choose a repository
               %optgroup{:label => 'User Repositories'}
                 - @user.user_repos.each do |repo|
-                  %option{:value => repo['html_url']}=repo['name']
+                  %option{:value => repo['html_url'], "data-name" => "#{repo['full_name']}"}=repo['name']
               %optgroup{:label => 'Org Repositories'}
                 - @user.org_repos.each do |repo|
-                  %option{:value => repo['html_url']}=repo['name']
+                  %option{:value => repo['html_url'], "data-name" => "#{repo['full_name']}"}=repo['name']
           %p
             %input#application-token{:type=> "hidden", :value=> @user.token}
             %input#github-account{ :type=> "hidden", :value=> @user.login}

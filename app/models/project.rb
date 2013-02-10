@@ -64,7 +64,7 @@ class Project < ActiveRecord::Base
         AwsSecretAccessKey: self.aws_secret_access_key,
         KeyName: self.aws_key_name,
         InstanceType: 'm1.small',
-        ProjectGithubUser: self.github_account,
+        ProjectGithubUser: self.github_project,
         ProjectType: 'rails',
         GithubDeployPrivateKey: self.github_deploy_key.private_key,
         DeployPrivateKey: self.deploy_key.private_key

@@ -116,6 +116,8 @@ $(document).ready(function () {
                 return;
             }
 
+
+
             var applicationName = $('#application-name option:selected').text();
             var applicationUrl = $('#application-name option:selected').val();
             var data = {project: {
@@ -123,7 +125,7 @@ $(document).ready(function () {
                 url: applicationUrl,
                 token: $('#application-token').val(),
                 github_account: $('#github-account').val(),
-                github_project: applicationName,
+                github_project: $('#application-name option:selected').attr('data-name'),
                 region: $('#aws-region').val(),
                 aws_access_key: $("#aws-access-key-id").val(),
                 aws_secret_access_key: $("#aws-secret-access-key").val(),
