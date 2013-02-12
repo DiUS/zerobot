@@ -12,6 +12,10 @@ class GithubUser
     user['login']
   end
 
+  def email
+    user['email']
+  end 
+  
   def avatar_url
     user['avatar_url']
   end

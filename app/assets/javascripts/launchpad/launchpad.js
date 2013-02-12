@@ -79,6 +79,12 @@ $(document).ready(function () {
             }
         },
         {
+            id: '#correspondence',
+            validation: function () {
+                return true;
+            },
+            finish: true
+        },{
             id: '#aws-details',
             validation: function () {
 
@@ -116,8 +122,6 @@ $(document).ready(function () {
                 return;
             }
 
-
-
             var applicationName = $('#application-name option:selected').text();
             var applicationUrl = $('#application-name option:selected').val();
             var data = {project: {
@@ -129,7 +133,8 @@ $(document).ready(function () {
                 region: $('#aws-region').val(),
                 aws_access_key: $("#aws-access-key-id").val(),
                 aws_secret_access_key: $("#aws-secret-access-key").val(),
-                aws_key_name: $("#aws-private-key").val()
+                aws_key_name: $("#aws-private-key").val(),
+                accept_correspondence: $('#accept-correspondence:checked').val()? true : false
             }};
 
             $.cookie('project_data', JSON.stringify(data), {expires: 365});
