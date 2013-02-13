@@ -8,8 +8,6 @@ echo "This script must be run as root" 1>&2
     exit 1
 fi
 
-source /etc/default/app
-
 add_generic_conf() {
     # function should be called with arguments:
     # $1 - conf_file
@@ -86,7 +84,7 @@ NGINX_RAILS_CONF_FILE=/etc/nginx/conf.d/rails.conf
 
 usage() {
   echo ""
-  echo "Usage: $0 tech_stack"
+  echo "Usage: $0 project_name"
   exit 1
 }
 
@@ -94,10 +92,8 @@ if [ -z "$1" ]; then
   usage
 fi
 
-tech_stack=$1
+project_name=$1
 
 mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.back
-if [ $tech_stack == "rails" ]; then
-   add_generic_conf $NGINX_RAILS_CONF_FILE $PROJECT_NAME
-fi
+add_generic_conf $NGINX_RAILS_CONF_FILE $project_name
 

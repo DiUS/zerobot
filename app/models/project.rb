@@ -5,20 +5,45 @@ class Project < ActiveRecord::Base
 
   validates_presence_of :name
 
-  after_create :assign_deploy_key, :assign_github_deploy_key, :launch_dashboard, :launch_ci
+  after_create :assign_deploy_key, :assign_github_deploy_key, :launch_dashboard
 
   def launch_dashboard
-    Dupondius::Aws::CloudFormation::Dashboard.new(self.name, 'Ruby on Rails',
-                                                  self.region, self.aws_key_name, {
-        InstanceType: 'm1.small',
-        DBName: 'dashboard',
-        DBUsername: 'dashboard',
-        DBPassword: 'dashboard',
-        DBRootPassword: 'r00tr00t',
-        AwsAccessKey: self.aws_access_key,
-        AwsSecretAccessKey: self.aws_secret_access_key,
-        KeyName: self.aws_key_name
-    }).create
+    ec2= AWS::EC2.new(:access_key_id => Dupondius.config.access_key,
+       :secret_access_key => Dupondius.config.secret_access_key,
+       :ec2_endpoint => "ec2.#{self.region}.amazonaws.com")
+
+    self.ec2_instance= ec2.instances.create(image_id: 'ami-b232a488',
+                                            key_name: self.aws_key_name,
+                                            instance_type: 't1.micro',
+                                            user_data: %Q{
+#!/bin/bash
+set -e -x
+
+export HOME=/root
+cat <<EOF >>/etc/default/app
+PROJECT_NAME=#{self.name}
+RAILS_ENV=production
+ENABLE_LAUNCHPAD=false
+AUTH_ENABLED=false
+KEY_NAME=#{self.aws_key_name}
+AWS_ACCESS_KEY_ID=#{Dupondius.config.access_key}
+AWS_SECRET_ACCESS_KEY=#{Dupondius.config.secret_access_key}
+AWS_REGION=#{self.region}
+ZONE=zerobot.io
+EOF
+
+cd /opt/app/zerobot/current && /usr/local/bin/bundle exec foreman export initscript /etc/init.d -e /etc/default/app -f ./Procfile.production -a zerobot -u root -l /opt/app/zerobot/shared/log
+
+chmod +x /etc/init.d/zerobot
+chkconfig zerobot on
+chkconfig nginx on
+
+/etc/init.d/nginx restart
+/etc/init.d/zerobot restart
+
+/usr/sbin/update-route53-dns
+    }).id
+    save
   end
 
   def dashboard
@@ -76,7 +101,4 @@ class Project < ActiveRecord::Base
     }
     Dupondius::Aws::CloudFormation::ContinuousIntegration.create(self.name, 'Ruby on Rails', self.region, options)
   end
-  
-  handle_asynchronously :launch_dashboard
-  handle_asynchronously :launch_ci
 end

@@ -1,7 +1,6 @@
 #!/bin/sh
-
-# Standalone dashboard install script
-#
+set -x
+set -e
 
 # Make sure only root can run our script
 if [ "$(id -u)" != "0" ]; then
@@ -10,60 +9,70 @@ echo "This script must be run as root" 1>&2
 fi
 
 
-usage() {
-  echo ""
-  echo "Usage: $0 tech_stack aws_region"
-  exit 1
-}
+RAILS_ENV=production
+DEPLOY_TO=/opt/app/zerobot
+RELEASES_PATH=/opt/app/zerobot/releases
+RELEASE_PATH=/opt/app/zerobot/releases/master
+SHARED_PATH=/opt/app/zerobot/shared
+CURRENT_PATH=/opt/app/zerobot/current
+APPLICATION=zerobot
 
-if [ -z "$3" ]; then
-  usage
-fi
+GITHUB_PACKAGE_PATH=https://nodeload.github.com/DiUS/zerobot/zip/master
+DOWNLOAD_PACKAGE_PATH="/tmp/master.zip"
+DECOMPRESS_CMD="unzip /tmp/master.zip"
 
-tech_stack=$1
-aws_region=$2
-key_name=$3
+mkdir -p $DEPLOY_TO
+mkdir -p $RELEASES_PATH
+mkdir -p ${SHARED_PATH}
+mkdir -p ${SHARED_PATH}/system
+mkdir -p ${SHARED_PATH}/log
+mkdir -p ${SHARED_PATH}/pids
 
-# load the app environment variables
+touch ${SHARED_PATH}/log/${RAILS_ENV}.log
+chmod 0666 ${SHARED_PATH}/log/${RAILS_ENV}.log
+chmod -R g+w ${DEPLOY_TO}
+
+curl -o ${DOWNLOAD_PACKAGE_PATH} ${GITHUB_PACKAGE_PATH} 2>&1
+
+cd ${RELEASES_PATH} && ${DECOMPRESS_CMD} && mv zerobot-master master
+
+# cap deploy:assets_symlink
+rm -rf ${RELEASE_PATH}/public/assets
+mkdir -p ${RELEASE_PATH}/public
+mkdir -p ${DEPLOY_TO}/shared/assets
+ln -s ${SHARED_PATH}/assets ${RELEASE_PATH}/public/assets
+
+# cap deploy:finalize_update
+chmod -R g+w ${RELEASE_PATH}
+rm -rf ${RELEASE_PATH}/log
+rm -rf ${RELEASE_PATH}/public/system
+rm -rf ${RELEASE_PATH}/tmp/pids
+mkdir -p ${RELEASE_PATH}/public
+mkdir -p ${RELEASE_PATH}/tmp
+ln -s ${SHARED_PATH}/system ${RELEASE_PATH}/public/system
+ln -s ${SHARED_PATH}/log ${RELEASE_PATH}/log
+ln -s ${SHARED_PATH}/pids ${RELEASE_PATH}/tmp/pids
+
+# AFTER: cap deploy:finalize_update
+cd ${RELEASE_PATH}
+bundle install --gemfile ${RELEASE_PATH}/Gemfile --path ${SHARED_PATH}/bundle --deployment --quiet --without development test
+
+# AFTER: cap deploy:update_code
+cd ${RELEASE_PATH}
 source /etc/default/app
-
-dashboard_name=$PROJECT_NAME
-dashboard_git_repo="https://github.com/DiUS/zerobot.git"
-
-# Create a database
 export DB_NAME
 export DB_USERNAME
 export DB_PASSWORD
 export DB_SOCKET
-mysql --user=$DB_USERNAME --password=$DB_PASSWORD --execute="CREATE DATABASE $DB_NAME;"
 
-echo "UserKnownHostsFile /dev/null" >> /home/deployer/.ssh/config
-echo "StrictHostKeyChecking no" >> /home/deployer/.ssh/config
-chown deployer:deployer /home/deployer/.ssh/config
-su - deployer -c "chmod 600 /home/deployer/.ssh/config"
-su - deployer -c "mkdir -p /opt/app/$dashboard_name/shared/log"
-su - deployer -c "mkdir -p /opt/app/$dashboard_name/shared/pids"
-su - deployer -c "cd /opt/app/$dashboard_name &&  git clone --depth 1 $dashboard_git_repo current"
-su - deployer -c "cd /opt/app/$dashboard_name/current && bundle install --path vendor/bundle --deployment --without development test"
-su - deployer -c "cd /opt/app/$dashboard_name/current && bundle exec rake RAILS_ENV=production RAILS_GROUPS=assets DB_NAME=$DB_NAME DB_USERNAME=$DB_USERNAME DB_PASSWORD=$DB_PASSWORD DB_SOCKET=$DB_SOCKET assets:precompile"
-su - deployer -c "cd /opt/app/$dashboard_name/current && bundle exec rake RAILS_ENV=production DB_NAME=$DB_NAME DB_USERNAME=$DB_USERNAME DB_PASSWORD=$DB_PASSWORD DB_SOCKET=$DB_SOCKET db:migrate"
+bundle exec rake RAILS_ENV=${RAILS_ENV} db:create db:migrate
+bundle exec rake RAILS_ENV=${RAILS_ENV} RAILS_GROUPS=assets assets:precompile
 
-# Tweak some runtime config
-echo "RAILS_ENV=production" >> /etc/default/app
-echo "ENABLE_LAUNCHPAD=false" >> /etc/default/app
-echo "TECH_STACK=$tech_stack" >> /etc/default/app
-echo "AUTH_ENABLED=false" >> /etc/default/app
-echo "KEY_NAME=$key_name" >> /etc/default/app
 
-#
-echo "AWS_REGION=$aws_region" >> /etc/default/app
+# cap deploy:create_symlink
+rm -f ${CURRENT_PATH}
+ln -s ${RELEASE_PATH} ${CURRENT_PATH}
 
-# Generate initd scripts
-su - deployer -c "cd /opt/app/$dashboard_name/current && bundle exec foreman export initscript /tmp -e /etc/default/app -f ./Procfile.production -a $dashboard_name -u deployer -l /opt/app/$dashboard_name/current/log"
-mv /tmp/$dashboard_name /etc/init.d
-chmod +x /etc/init.d/$dashboard_name
-chkconfig $dashboard_name on
-
-# Go
-/etc/init.d/$dashboard_name restart
-
+# remove cloudformation user-data scripts otherwise they get run when AMI is created
+rm -f /var/lib/cloud/data/scripts/*
+rm -f /var/lib/cloud/data/*.*
