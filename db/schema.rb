@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204051237) do
+ActiveRecord::Schema.define(:version => 20130212010109) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20121204051237) do
     t.text     "github_deploy_key"
     t.text     "deploy_key"
     t.string   "url"
+    t.boolean  "accept_correspondence"
   end
 
   create_table "server_configurations", :force => true do |t|

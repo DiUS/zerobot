@@ -17,7 +17,7 @@
   =render "shared/empty_nav"
 
   %div.steps
-    %div#page1.page{'data-step' => "true",  'data-submit' => "page-one-done",  'data-next' => "aws-details",  'data-navigation' => "nav-application-name"}
+    %div#page1.page{'data-step' => "true",  'data-submit' => "page-one-done",  'data-next' => "correspondence",  'data-navigation' => "nav-application-name"}
       %div.page-container
         - unless @user
           %h1 Github Authorisation
@@ -62,7 +62,19 @@
               %br
               %span
                 (You will need to log out of your github account first)
-
+    %div#correspondence.page.hidden{'data-step' => "true",  'data-submit' => "correspondence-done", 'data-next' => "aws-details", 'data-navigation' => "nav-application-correspondence"}
+      %div.page-container
+        %h1 Opt in for further details
+        %p
+          Do you agree to receive correspondence?
+        %p
+          %input#accept-correspondence{:type => "checkbox", :value => 1, :checked => true}
+          %label.control-label{:for => 'accept-correspondence'}
+            Yes, I would like to know more about future developments of Zerobots
+        %p
+          %a#correspondence-done.btn.btn-primary.btn-xlarge{:href => '#'}
+            %i.icon-arrow-down.icon-white
+            Next step
     %div#aws-details.page.hidden{'data-step' => "true",  'data-submit' => "aws-done", 'data-next' => "region", 'data-navigation' => "nav-application-aws"}
       %div.page-container
         %h1 AWS Authorisation
