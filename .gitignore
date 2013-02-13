@@ -26,13 +26,13 @@ public/assets/
 deployer.pem
 .env
 
+# vim/gedit swap files
+*~
+*.swp
+
 .rbenv-version
 .rvmrc
 .pry_history
-
-# vi / vim / gedit temp files
-*.swp
-*~
 
 # AWS creds
 zerobot-deployer.pem
