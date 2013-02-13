@@ -8,7 +8,7 @@ $(document).ready(function () {
     });
 
     var getSuccess = function(response) {
-        if (response.status === 'CREATE_COMPLETE') {
+        if (response.status === 'running') {
             $('#loading-image').remove();
             $('#please-wait').remove();
             $('#waiting .page-container h1').text('Your environment is ready for action');
@@ -31,7 +31,7 @@ $(document).ready(function () {
               contentType: "application/json",
               success: getSuccess
             });
-         }, 50000);
+         }, 30000);
         }
     };
 

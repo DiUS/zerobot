@@ -8,10 +8,6 @@ class Project < ActiveRecord::Base
   after_create :assign_deploy_key, :assign_github_deploy_key, :launch_dashboard
 
   def launch_dashboard
-    ec2= AWS::EC2.new(:access_key_id => Dupondius.config.access_key,
-       :secret_access_key => Dupondius.config.secret_access_key,
-       :ec2_endpoint => "ec2.#{self.region}.amazonaws.com")
-
     self.ec2_instance= ec2.instances.create(image_id: 'ami-b232a488',
                                             key_name: self.aws_key_name,
                                             instance_type: 't1.micro',
@@ -26,8 +22,8 @@ RAILS_ENV=production
 ENABLE_LAUNCHPAD=false
 AUTH_ENABLED=false
 KEY_NAME=#{self.aws_key_name}
-AWS_ACCESS_KEY_ID=#{Dupondius.config.access_key}
-AWS_SECRET_ACCESS_KEY=#{Dupondius.config.secret_access_key}
+AWS_ACCESS_KEY_ID=#{self.aws_access_key}
+AWS_SECRET_ACCESS_KEY=#{self.aws_secret_access_key}
 AWS_REGION=#{self.region}
 ZONE=zerobot.io
 EOF
@@ -47,9 +43,12 @@ chkconfig nginx on
   end
 
   def dashboard
-    @dashboard ||= Dupondius::Aws::CloudFormation::Dashboard.find(self.name, self.region)
+    @dashboard ||= ec2.instances[self.ec2_instance]
   end
 
+  def dashboard_url
+    "http://dashboard.#{self.name}.#{Dupondius.config.hosted_zone}"
+  end
   # github deploy key is used by CI to pull code
   def github_deploy_key
     SSHKey.new(read_attribute(:github_deploy_key))
@@ -86,6 +85,12 @@ chkconfig nginx on
     public_key = bucket.objects["#{self.name}.pub"]
     public_key.write(self.deploy_key.ssh_public_key)
     public_key.acl= :public_read
+  end
+
+  def ec2
+    @ec2 ||= AWS::EC2.new(:access_key_id => self.aws_access_key,
+       :secret_access_key => self.aws_secret_access_key,
+       :ec2_endpoint => "ec2.#{self.region}.amazonaws.com")
   end
 
   def launch_ci

@@ -143,7 +143,7 @@
               "/etc/default/app" : {
                "content" : { "Fn::Join" : ["", [
                   "ENVIRONMENT_NAME=dashboard\n",
-                  "TTL=600\n",
+                  "TTL=60\n",
                   "DB_NAME=", { "Ref" : "DBName" }, "\n",
                   "DB_USERNAME=", { "Ref" : "DBUsername" }, "\n",
                   "DB_PASSWORD=", { "Ref" : "DBPassword" }, "\n",

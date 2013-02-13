@@ -58,8 +58,8 @@ ActiveRecord::Schema.define(:version => 20130213100244) do
     t.text     "github_deploy_key"
     t.text     "deploy_key"
     t.string   "url"
-    t.boolean  "accept_correspondence"
     t.string   "ec2_instance"
+    t.boolean  "accept_correspondence"
   end
 
   create_table "server_configurations", :force => true do |t|

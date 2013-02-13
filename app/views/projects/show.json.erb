@@ -1,10 +1,10 @@
 {
     "id" : "<%= @project.id %>",
     "status" : "<%= @project.dashboard.status unless @project.dashboard.nil?%>",
-    <% if @project.dashboard && @project.dashboard.complete?  %>
+    <% if @project.dashboard && @project.dashboard.status == :running  %>
       "output" : {
-        "key" : "<%= @project.dashboard.outputs.first.key%>",
-        "value" : "<%= @project.dashboard.outputs.first.value%>"
+        "key" : "url",
+        "value" : "<%= @project.dashboard_url%>"
       },
     <% end %>
     "name" : "<%= @project.name %>"
