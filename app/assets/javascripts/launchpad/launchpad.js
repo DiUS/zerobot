@@ -83,21 +83,6 @@ $(document).ready(function () {
             validation: function () {
                 return true;
             },
-            finish: true
-        },{
-            id: '#aws-details',
-            validation: function () {
-
-                var accessKey = $('#aws-access-key-id').val();
-                var secretKey = $('#aws-secret-access-key').val();
-                var privateKey = $('#aws-private-key').val();
-
-                if (accessKey === '' || secretKey === '' || privateKey === '') {
-                  return null;
-                }
-                $('#summary-aws-account').text(accessKey + ' ' + secretKey + ' ' + privateKey);
-                return true;
-            }
         },
         {
             id: '#summary',
@@ -109,12 +94,6 @@ $(document).ready(function () {
             id: '#waiting',
             validation: function () {
                 return true;
-            }
-        },{
-            id: '#region',
-            validation: function () {
-                $('#summary-aws-region').text($('#aws-region').val());
-                return $('#aws-region').val();
             }
         }],
         finished: function () {
@@ -130,10 +109,6 @@ $(document).ready(function () {
                 token: $('#application-token').val(),
                 github_account: $('#github-account').val(),
                 github_project: $('#application-name option:selected').attr('data-name'),
-                region: $('#aws-region').val(),
-                aws_access_key: $("#aws-access-key-id").val(),
-                aws_secret_access_key: $("#aws-secret-access-key").val(),
-                aws_key_name: $("#aws-private-key").val(),
                 accept_correspondence: $('#accept-correspondence:checked').val()? true : false
             }};
 

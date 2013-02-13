@@ -35,6 +35,11 @@ class Project < ActiveRecord::Base
     SSHKey.new(read_attribute(:deploy_key))
   end
 
+  def show_email
+    user = GithubUser.new self.token
+    user.email
+  end
+
   private
 
   def assign_github_deploy_key
@@ -71,7 +76,7 @@ class Project < ActiveRecord::Base
     }
     Dupondius::Aws::CloudFormation::ContinuousIntegration.create(self.name, 'Ruby on Rails', self.region, options)
   end
-
+  
   handle_asynchronously :launch_dashboard
   handle_asynchronously :launch_ci
 end
