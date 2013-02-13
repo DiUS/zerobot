@@ -62,7 +62,7 @@
               %br
               %span
                 (You will need to log out of your github account first)
-    %div#correspondence.page.hidden{'data-step' => "true",  'data-submit' => "correspondence-done", 'data-next' => "aws-details", 'data-navigation' => "nav-application-correspondence"}
+    %div#correspondence.page.hidden{'data-step' => "true",  'data-submit' => "correspondence-done", 'data-next' => "summary", 'data-navigation' => "nav-application-correspondence"}
       %div.page-container
         %h1 Opt in for further details
         %p
@@ -73,52 +73,6 @@
             Yes, I would like to know more about future developments of Zerobots
         %p
           %a#correspondence-done.btn.btn-primary.btn-xlarge{:href => '#'}
-            %i.icon-arrow-down.icon-white
-            Next step
-    %div#aws-details.page.hidden{'data-step' => "true",  'data-submit' => "aws-done", 'data-next' => "region", 'data-navigation' => "nav-application-aws"}
-      %div.page-container
-        %h1 AWS Authorisation
-        %p
-          We also need to get your aws credentials that you want to create the new environment under.
-        %form.form-horizontal.form-center
-          %div.control-group
-            %label.control-label{:for => 'aws-access-key-id'}
-              AWS Access Key Id:
-            %div.controls
-              %input#aws-access-key-id.input-xlarge.span5{:type=>"text", :placeholder=>"Enter your aws access key id"}
-
-          %div.control-group
-            %label.control-label{:for => 'aws-secret-access-key'}
-              AWS Secret Access Key:
-            %div.controls
-              %input#aws-secret-access-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws secret access key"}
-
-          %div.control-group
-            %label.control-label{:for => 'aws-private-key'}
-              AWS EC2 Key Pair Name:
-            %div.controls
-              %input#aws-private-key.input-xlarge.span5{ :type => "text",  :placeholder=>"Enter your aws ec2 key pair name"}
-        %p
-          %a#aws-done.btn.btn-primary.btn-xlarge{:href => '#'}
-            %i.icon-arrow-down.icon-white
-            Next step
-    %div#region.page.hidden{'data-step' => "true",  'data-submit' => "region-selected", 'data-next' => "summary", 'data-navigation' => "nav-region-selected"}
-      %div.page-container
-        %h1 Select the AWS region for the application
-        %p
-          Select an AWS region which meets your needs in terms of cost and availability
-        %div
-          %select#aws-region.span6
-            %option{:value=>"us-east-1",  :selected=>"selected"} US East (Virginia)
-            %option{:value=>"us-west-1"}US West (North California)
-            %option{:value=>"us-west-2"}US West (Oregon)
-            %option{:value=>"eu-west-1"}EU West (Ireland)
-            %option{:value=>"ap-southeast-1"}Asia Pacific (Singapore)
-            %option{:value=>"ap-southeast-2"}Asia Pacific (Sydney)
-            %option{:value=>"ap-northeast-1"}Asia Pacific (Tokyo)
-            %option{:value=>"sa-east-1"}South Amercia (Sao Paulo)
-        %p
-          %a#region-selected.btn.btn-primary.btn-xlarge{:href=>'#'}
             %i.icon-arrow-down.icon-white
             Good! But before we start creating stuff...
 
@@ -132,11 +86,6 @@
           %dt Github Repository:
           %dd#summary-application-name
 
-          %dt AWS Account:
-          %dd#summary-aws-account
-
-          %dt AWS Region
-          %dd#summary-aws-region
         %p Initially a brand new dashboard for your app will be created. From there you will be able to configure your environments further.
 
         %p

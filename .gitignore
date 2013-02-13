@@ -30,6 +30,10 @@ deployer.pem
 .rvmrc
 .pry_history
 
+# vi / vim / gedit temp files
+*.swp
+*~
+
 # AWS creds
 zerobot-deployer.pem
 
