@@ -27,6 +27,11 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    params[:project][:aws_access_key] ||= ENV['AWS_ACCESS_KEY_ID']
+    params[:project][:aws_secret_access_key] ||= ENV['AWS_SECRET_ACCESS_KEY']
+    params[:project][:region] ||= ENV['AWS_REGION']
+    params[:project][:aws_key_name] ||= ENV['AWS_KEY_NAME']
+    
     if Rails.configuration.demo_enabled
       render :json => {
         :id => 1,
