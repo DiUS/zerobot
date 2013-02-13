@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base
   attr_accessible :name, :token, :tech_stack, :region,
     :github_account, :github_project, :github_private,
-    :aws_access_key, :aws_secret_access_key, :aws_key_name, :url
+    :aws_access_key, :aws_secret_access_key, :aws_key_name, :url, :accept_correspondence
 
   validates_presence_of :name
 
