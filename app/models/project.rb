@@ -25,7 +25,19 @@ KEY_NAME=#{self.aws_key_name}
 AWS_ACCESS_KEY_ID=#{self.aws_access_key}
 AWS_SECRET_ACCESS_KEY=#{self.aws_secret_access_key}
 AWS_REGION=#{self.region}
+GITHUB_PROJECT=#{self.github_project}
+GITHUB_DEPLOY_KEY=/var/local/github_deploy.pem
+CAP_DEPLOY_KEY=/var/local/cap_deploy.pem
 ZONE=zerobot.io
+EOF
+
+cat <<EOF >>/var/local/github_deploy.pem
+#{self.github_deploy_key.private_key}
+EOF
+
+
+cat <<EOF >>/var/local/cap_deploy.pem
+#{self.deploy_key.private_key}
 EOF
 
 cd /opt/app/zerobot/current && /usr/local/bin/bundle exec foreman export initscript /etc/init.d -e /etc/default/app -f ./Procfile.production -a zerobot -u root -l /opt/app/zerobot/shared/log
@@ -38,6 +50,7 @@ chkconfig nginx on
 /etc/init.d/zerobot restart
 
 /usr/sbin/update-route53-dns
+
     })
     self.ec2_instance= instance.id
     instance.tag('zerobot:project_name', value: self.name)
