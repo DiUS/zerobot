@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
   after_create :assign_deploy_key, :assign_github_deploy_key, :launch_dashboard
 
   def launch_dashboard
-    self.ec2_instance= ec2.instances.create(image_id: 'ami-f632a4cc',
+    instance= ec2.instances.create(image_id: 'ami-f632a4cc',
                                             key_name: self.aws_key_name,
                                             instance_type: 't1.micro',
                                             user_data: %Q{
@@ -38,7 +38,10 @@ chkconfig nginx on
 /etc/init.d/zerobot restart
 
 /usr/sbin/update-route53-dns
-    }).id
+    })
+    self.ec2_instance= instance.id
+    instance.tag('zerobot:project_name', value: self.name)
+    instance.tag('Name', value: self.github_project)
     save
   end
 
