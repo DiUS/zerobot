@@ -18,9 +18,6 @@ define([
             navigationView.renderImages();
 
             var _this = this;
-            $.get('/status', function (data) {
-              _this.$('footer .version').html("<div>Version: " + data.version + "</div>");
-            });
         },
 
 
