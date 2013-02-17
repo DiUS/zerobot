@@ -53,4 +53,22 @@ class Aws::StacksController < ApplicationController
     respond_with(Dupondius::Aws::CloudFormation::Stack.find(params[:id]).template)
   end
 
+  def create_ci
+    options = {
+        InstanceType: 'm1.small',
+        ProjectGithubUser: Dupondius.config.github_project,
+        ProjectType: 'rails',
+        GithubDeployPrivateKey: File.read(Dupondius.config.github_deploy_key),
+        DeployPrivateKey: File.read(Dupondius.config.cap_deploy_key),
+        DBName: "ci",
+        DBUsername: "ciuser",
+        DBPassword: "cipassword"
+    }
+
+    Dupondius::Aws::CloudFormation::Stack.create('jenkins-ruby-on-rails.template',
+                                                 'ci',
+                                                 Dupondius.config.project_name,
+                                                 options)
+  end
+
 end
