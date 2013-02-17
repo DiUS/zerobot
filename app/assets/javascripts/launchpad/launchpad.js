@@ -13,6 +13,7 @@ $(document).ready(function () {
             $('#please-wait').remove();
             $('#waiting .page-container h1').text('Your environment is ready for action');
             $('#waiting .page-container').append('<h2><a href="' + response.output.value + '" target="_blank">' + response.output.value + '</a></h2>');
+            $('#waiting .page-container').append('<p>Link broken? You may have to wait a few moments while your Zerobot domain is being registered.</p>');
             $('#waiting .page-container').append('<p>Done with this environment? <a id="create-another-link" href="">Create another</a></p>');
             return;
         } else if (response.status === 'ROLLBACK_COMPLETE' || response.status === 'CREATE_FAILED') {
@@ -42,8 +43,6 @@ $(document).ready(function () {
             contentType: "application/json",
             success:  getSuccess
         });
-
-        $('#please-wait').append('<div id="loading-image"><img src="/assets/ajax-loading.gif" alt="Loading..." /></div>');
     };
 
     if ($.cookie('project_id') !== null) {
@@ -120,7 +119,6 @@ $(document).ready(function () {
             };
 
             var postError = function(xhr, responseText) {
-                debugger;
                 $('#loading-image').remove();
                 $('#please-wait').remove();
                 $('#waiting .page-container h1').text('Your environment failed to be created');
@@ -128,6 +126,8 @@ $(document).ready(function () {
                 $('#waiting .page-container').append('<p>' + xhr.responseText + '</p>');
                 $('#waiting .page-container').append('<p>When you are confident that you can attempt to create your environments again, <a id="create-another-link" href="">click here</a>.</p>');
             };
+
+            $('#please-wait').append('<div id="loading-image"><img src="/assets/ajax-loading.gif" alt="Loading..." /></div>');
 
             $.ajax({
                 type: 'POST',
