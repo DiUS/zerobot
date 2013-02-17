@@ -11,7 +11,8 @@
     %link{ :href => "/assets/planar.css", :rel => "stylesheet"}
     %link{ :href => "/assets/jquery.selectable-grid.css", :rel => "stylesheet"}
   %body.welcome
-
+    %a{href: "https://github.com/dius/zerobot"}
+      %img{style: "position: absolute; top: 0; right: 0; border: 0;", src: "https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png", alt: "Fork me on GitHub"}
     %div.steps
       %div#home.home-page
         %div.page-container
@@ -19,10 +20,12 @@
             %p.main-logo
               %img{src: '/assets/logo/zerobot_wordmark_blk.png'}
             %p.dupondius-blurb The Zerobot Launchpad gets you up and running in no time - creating the stack you need with a fully-automated continuous delivery solution.
-            %p.dupondius-blurb Iteration zero made easy.
-            %p.dupondius-blurb.right
+            %p.dupondius-blurb Zeroing Iteration Zero.
+            %p.dupondius-blurb
               %a.btn.btn-dupondius.btn-xlarge{ :href => '/launchpad'}
                 Take me to the Launchpad &nbsp;
                 %i.icon-arrow-right.icon-white
-
+              %a.btn.btn-success.btn-xlarge{ :href => 'http://dashboard.zerobot-rails-skeleton.zerobot.io/', :target => '_blank'}
+                Live demo &nbsp;
+                %i.icon-arrow-right.icon-white
     =render 'shared/feedback'
