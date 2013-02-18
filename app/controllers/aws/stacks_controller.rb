@@ -56,7 +56,7 @@ class Aws::StacksController < ApplicationController
   def create_ci
     options = {
         InstanceType: 'm1.small',
-        ProjectGithubUser: Dupondius.config.github_project,
+        ProjectGithubUser: Dupondius.config.github_project.gsub('/','\/'),
         ProjectType: 'rails',
         GithubDeployPrivateKey: File.read(Dupondius.config.github_deploy_key),
         DeployPrivateKey: File.read(Dupondius.config.cap_deploy_key),
