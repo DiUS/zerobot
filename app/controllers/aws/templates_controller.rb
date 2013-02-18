@@ -4,7 +4,10 @@ class Aws::TemplatesController < ApplicationController
   respond_to :json
 
   def index
-    respond_with(Dupondius::Aws::CloudFormation::Template.all)
+    template = Dupondius::Aws::CloudFormation::Template.all.reject! do |templ| 
+      ['dashboard-ami.template', 'jenkins-ruby-on-rails.template'].include? templ[:id]
+    end
+    respond_with(template)
   end
 
   def show
