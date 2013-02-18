@@ -69,6 +69,7 @@ class Aws::StacksController < ApplicationController
                                                  'ci',
                                                  Dupondius.config.project_name,
                                                  options)
+    render :json => {:success => true}, :status => 200
   end
 
 end
