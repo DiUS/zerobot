@@ -1,7 +1,7 @@
 {
   "AWSTemplateFormatVersion" : "2010-09-09",
 
-  "Description" : "Dupondi.us Continuous Integration. Create a CI environment stack using a single EC2 instance with Jenkins. jenkins-rails.template",
+  "Description" : "Zerobot.io Continuous Integration. Create a CI environment stack using a single EC2 instance with Jenkins. jenkins-rails.template",
 
   "Parameters" : {
 
@@ -263,7 +263,7 @@
           "sed -i 's/\\(Defaults\\s\\+requiretty\\)/#\\1/' /etc/sudoers\n",
           "sudo -u jenkins ssh -o StrictHostKeyChecking=no git@github.com\n",
           "chsh -s /bin/sh jenkins\n",
-          "su - jenkins -c \"git clone -n --depth 1 git@github.com:uglyog/dupondius-jenkins-config.git /var/tmp/git-tmp\"\n",
+          "su - jenkins -c \"git clone -n --depth 1 git://github.com/uglyog/dupondius-jenkins-config.git /var/tmp/git-tmp\"\n",
           "mv /var/tmp/git-tmp/.git /var/lib/jenkins/\n",
           "cd /var/lib/jenkins/\n",
           "git checkout ", { "Ref" : "ProjectType" } ,"\n",
@@ -351,7 +351,7 @@
         "Comment" : "CNAME to ci instance.",
         "Name" : { "Fn::Join" : [ "", ["ci", ".", {"Ref" : "ProjectName"}, ".", {"Ref" : "HostedZone"}, "."]]},
         "Type" : "CNAME",
-        "TTL" : "900",
+        "TTL" : "60",
         "ResourceRecords" : [{ "Fn::GetAtt" : [ "CIServer", "PublicDnsName" ]}]
       }
     }

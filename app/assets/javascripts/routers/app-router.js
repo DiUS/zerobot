@@ -25,7 +25,7 @@ define([
         },
 
         default: function () {
-            this.nav('index');
+            this.nav('configure');
         },
 
         nav: function (action) {

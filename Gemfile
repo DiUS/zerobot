@@ -5,7 +5,6 @@ gem 'bigdecimal'
 gem 'foreman-export-initscript', :git => 'git://github.com/Draiken/foreman-export-initscript.git'
 gem 'pivotal-tracker'
 
-gem 'delayed_job_active_record'
 gem 'daemons'
 
 gem 'oauth2'
