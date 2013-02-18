@@ -77,7 +77,13 @@ define([
                     parameter_key: 'EnvironmentName',
                     description: 'Environment name'
                 });
-                this.$('.form-horizontal').append(formField);
+                this.$('.form-horizontal').append("<div class='control-group'><label for='stack-templates' class='control-label'>" +
+                                                        "Choose the type of stack to create:" +
+                                                     "</label>" +
+                                                      "<div class='controls'>" +
+                                                        "Jenkins Ruby on Rails" +
+                                                      "</div>" +
+                                                  "</div>");
             }
 
             if (!this.model.isNew()) {
@@ -100,6 +106,14 @@ define([
 
         fadeIn: function () {
             this.loading(false);
+            if (this.options.name === 'ci') {
+                this.$('.form-horizontal').replaceWith("<form class='form-horizontal hidden' style='visibility: visible; display: block;'>" +
+                                                        "<div class='control-group'><label for='stack-templates' class='control-label'>" +
+                                                          "Choose the type of stack to create:" +
+                                                        "</label><label class='control-label'>" +
+                                                          "Jenkins Ruby on Rails" +
+                                                        "</label></div></form>");
+            }
             this.$('.form-horizontal').css('visibility', 'visible').fadeIn();
         },
 
@@ -136,6 +150,9 @@ define([
         },
 
         confirm: function () {
+            if (this.options.name === 'ci') {
+              this.stackTemplate = new StackTemplate({ id: 'jenkins-ruby-on-rails.template'});
+            }
             if (this.stackTemplate === undefined) {
                 this.stackTemplate = new StackTemplate({ id: this.$('#stack-templates').val() });
                 this.bindTo(this.stackTemplate, 'change', function () {
@@ -156,6 +173,7 @@ define([
 
                 if (this.options.name === 'ci') {
                     attrs['EnvironmentName'] = this.$('#EnvironmentName').val();
+                    attrs['EnvironmentName'] = 'ci'
                 }
 
                 this.model.set({templateName: this.stackTemplate.get('id')}, {silent: true});
