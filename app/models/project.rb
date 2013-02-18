@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
   after_create :assign_deploy_key, :assign_github_deploy_key, :launch_dashboard
 
   def launch_dashboard
-    instance= ec2.instances.create(image_id: 'ami-00d3423a',
+    instance= ec2.instances.create(image_id: 'ami-7ed24344',
                                             key_name: self.aws_key_name,
                                             instance_type: 't1.micro',
                                             user_data: %Q{
