@@ -49,7 +49,7 @@ chkconfig nginx on
 /etc/init.d/nginx restart
 /etc/init.d/zerobot restart
 
-/usr/sbin/update-route53-dns
+/usr/sbin/update-route53-dns --create
 
     })
     self.ec2_instance= instance.id
@@ -109,17 +109,4 @@ chkconfig nginx on
        :ec2_endpoint => "ec2.#{self.region}.amazonaws.com")
   end
 
-  def launch_ci
-    options = {
-        AwsAccessKey: self.aws_access_key,
-        AwsSecretAccessKey: self.aws_secret_access_key,
-        KeyName: self.aws_key_name,
-        InstanceType: 'm1.small',
-        ProjectGithubUser: self.github_project,
-        ProjectType: 'rails',
-        GithubDeployPrivateKey: self.github_deploy_key.private_key,
-        DeployPrivateKey: self.deploy_key.private_key
-    }
-    Dupondius::Aws::CloudFormation::ContinuousIntegration.create(self.name, 'Ruby on Rails', self.region, options)
-  end
 end
