@@ -4,4 +4,7 @@
     %div.environment-description The environment has not been created yet! 
     %div.environment-description You can create this environment right now if you'd like.
     %div.environment-actions
-        %button.create.btn.btn-large.btn-primary Create Environment
+        - if(_(model.name).startsWith('ci')) {
+            %button.create_ci.btn.btn-large.btn-primary Launch CI
+        - else {
+            %button.create.btn.btn-large.btn-primary Create Environmesnt

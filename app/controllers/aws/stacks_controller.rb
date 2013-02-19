@@ -31,11 +31,13 @@ class Aws::StacksController < ApplicationController
     full_name.concat("-#{params[:parameters][:UniqueName]}") if params[:parameters][:EnvironmentName] == 'dev'
     params[:parameters].delete(:UniqueName)
     params[:parameters].delete(:EnvironmentName) if params[:parameters][:EnvironmentName] == 'ci'
+    # temporarily limiting aws ec2 instance size to m1.small 
+    params[:parameters][:InstanceType] = "m1.small"
     result = Dupondius::Aws::CloudFormation::Stack.create(params[:templateName],
                                                      full_name,
                                                      Dupondius.config.project_name,
                                                      params[:parameters])
-
+    
     render :json => {:success => true}, :status => 200
   end
 
