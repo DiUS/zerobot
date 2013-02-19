@@ -11,14 +11,20 @@ $(document).ready(function () {
         if (response.status === 'running') {
             $('#loading-image').remove();
             $('#please-wait').remove();
+            $('#waiting .page-container').html('<h1></h1>');
             $('#waiting .page-container h1').text('Your environment is ready for action');
-            $('#waiting .page-container').append('<h2><a href="' + response.output.value + '" target="_blank">' + response.output.value + '</a></h2>');
-            $('#waiting .page-container').append('<p>Link broken? You may have to wait a few moments while your Zerobot domain is being registered.</p>');
+            $('#waiting .page-container').append('<p>&nbsp;</p>');
+            $('#waiting .page-container').append('<h2><a href="http://' + response.output.aws_dns_name + '" target="_blank">http://' + response.output.aws_dns_name + '</a></h2>');
+            $('#waiting .page-container').append('<p>&nbsp;</p>');
+            $('#waiting .page-container').append('<p>We are preparing a second URL for you, we just need a few minutes to register the domain. <br/>This URL will be available soon.</p>');
+            $('#waiting .page-container').append('<p><a href="' + response.output.value + '" target="_blank">' + response.output.value + '</a></p>');
+            $('#waiting .page-container').append('<p>&nbsp;</p>');
             $('#waiting .page-container').append('<p>Done with this environment? <a id="create-another-link" href="">Create another</a></p>');
             return;
         } else if (response.status === 'ROLLBACK_COMPLETE' || response.status === 'CREATE_FAILED') {
             $('#loading-image').remove();
             $('#please-wait').remove();
+            $('#waiting .page-container').html('<h1></h1>');
             $('#waiting .page-container h1').text('Your environment failed to be created');
             $('#waiting .page-container').append('<p>There was an issue creating your environment.</p>');
             $('#waiting .page-container').append('<p>Please ensure that the AWS credentials you have provided are correct.</p>');
