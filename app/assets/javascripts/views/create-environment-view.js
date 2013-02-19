@@ -18,7 +18,7 @@ define([
         initialize: function (options) {
             ModalView.prototype.initialize.call(this);
 
-            this.model = new Stack();
+			this.model = new Stack();
             this.bindTo(this.model, 'change', function () {
                 if (!this.stackTemplate) {
                     this.stackTemplate = new StackTemplate({ id: this.model.get('template_name') });
@@ -152,10 +152,6 @@ define([
 
                 if (this.$('#UniqueName').length !== 0) {
                     attrs['UniqueName'] = this.$('#UniqueName').val();
-                }
-
-                if (this.options.name === 'ci') {
-                    attrs['EnvironmentName'] = this.$('#EnvironmentName').val();
                 }
 
                 this.model.set({templateName: this.stackTemplate.get('id')}, {silent: true});

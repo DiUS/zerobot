@@ -16,6 +16,7 @@ define([
             'click .stop': 'stop',
             'click .remove': 'removeIt',
             'click .create': 'create',
+            'click .create_ci': 'create_ci',
             'click .edit': 'edit',
             'click .reboot': 'reboot',
             'click .instances': 'instances',
@@ -143,6 +144,20 @@ define([
             });
             this.view.show();
 
+            return false;
+        },
+
+        create_ci: function () {
+            this.model = new Stack();
+            var attrs = {};
+
+            this.model.set({parameters: attrs}, {silent: true});
+            var self = this;
+            $.post('/aws/stacks/create_ci', {}, function(result) {
+            	self.fadeOut();
+            }, "json");
+            this.keepChecking();
+            
             return false;
         },
 
