@@ -75,6 +75,5 @@ module Dashboard
 
     # Domain Authentication with Google apps
     config.auth_enabled = ENV['AUTH_ENABLED'] && ENV['AUTH_ENABLED'].downcase == 'true' ? true : false
-
   end
 end

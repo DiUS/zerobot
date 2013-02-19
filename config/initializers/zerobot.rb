@@ -16,4 +16,9 @@ Dupondius.configure do |config|
   # launchpad concerns
   config.github_client_id = ENV['GITHUB_CLIENT_ID']
   config.github_secret = ENV['GITHUB_SECRET']
+  
+  # Analytics tracking with Google Analytics
+  config.ga_tracking_enabled = ENV['GA_TRACKING_ENABLED'] && ENV['GA_TRACKING_ENABLED'].downcase == 'true' ? true : false
+  config.ga_site_tracking_id = ENV['GA_SITE_TRACKING_ID']
+  config.ga_domain_name = ENV['GA_DOMAIN_NAME']
 end
