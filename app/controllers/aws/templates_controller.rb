@@ -5,7 +5,7 @@ class Aws::TemplatesController < ApplicationController
 
   def index
     template = Dupondius::Aws::CloudFormation::Template.all.reject! do |templ| 
-      ['dashboard-ami.template', 'jenkins-ruby-on-rails.template'].include? templ[:id]
+      !['rails_multi_az.template', 'rails_single_instance.template', 'rails_single_instance_with_rds.template'].include? templ[:id]
     end
     respond_with(template)
   end
