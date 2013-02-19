@@ -77,13 +77,7 @@ define([
                     parameter_key: 'EnvironmentName',
                     description: 'Environment name'
                 });
-                this.$('.form-horizontal').append("<div class='control-group'><label for='stack-templates' class='control-label'>" +
-                                                        "Choose the type of stack to create:" +
-                                                     "</label>" +
-                                                      "<div class='controls'>" +
-                                                        "Jenkins Ruby on Rails" +
-                                                      "</div>" +
-                                                  "</div>");
+                this.$('.form-horizontal').append(formField);
             }
 
             if (!this.model.isNew()) {
@@ -172,7 +166,6 @@ define([
                 }
 
                 if (this.options.name === 'ci') {
-                    attrs['EnvironmentName'] = this.$('#EnvironmentName').val();
                     attrs['EnvironmentName'] = 'ci'
                 }
 
