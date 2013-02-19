@@ -17,13 +17,15 @@
   =render "shared/empty_nav"
 
   %div.steps
-    %div#page1.page{'data-step' => "true",  'data-submit' => "page-one-done",  'data-next' => "correspondence",  'data-navigation' => "nav-application-name"}
+    %div#page1.page{'data-step' => "true",  'data-submit' => "page-one-done",  'data-next' => "summary",  'data-navigation' => "nav-application-name"}
       %div.page-container
         - unless @user
           %h1 Zerobot Launchpad
           %p Welcome to the Zerobot Launchpad!
           %p &nbsp;
-          %p Zerobot is the result of the DiUS Innovation Challenge "Zeroing Iteration Zero". The objective was to reduce the time required to set up a project’s environments from a number of days to two hours. We are trialing the tool publically and are looking for feedback so we can make improvements.
+          %p Zerobot is the result of the DiUS Innovation Challenge "Zeroing Iteration Zero". The objective was to reduce the time required to set up a project’s environments from a number of days to two hours. 
+          %p &nbsp;
+          %p We are trialing the tool publically and are looking for feedback so we can make improvements.
           %p &nbsp;
           %p To get started, we need to authorise access to your github account.
           %a.btn.btn-success.btn-xlarge{:href=> "/source/new"}
@@ -63,26 +65,10 @@
               %br
               %span
                 (You will need to log out of your github account first)
-    %div#correspondence.page.hidden{'data-step' => "true",  'data-submit' => "correspondence-done", 'data-next' => "summary", 'data-navigation' => "nav-application-correspondence"}
-      %div.page-container
-        %h1 We would like to contact you
-        %p &nbsp;
-        %p Zerobot is a tool we would like to mature and make into a better product. 
-        %p We are in the process of collecting feedback to help shape Zerobot into the tool that every team can use. To do this, we would like to contact you and understand how your Zerobot experience was. 
-        %p You will be kept up to date with the latest developments Zerobot related.
-        %p
-          %label.control-label{:for => 'accept-correspondence'} 
-            %input#accept-correspondence{:type => "checkbox", :value => 1, :checked => true}
-            Yes, I would like to know more about future developments of Zerobot
-          
-        %p
-          %a#correspondence-done.btn.btn-primary.btn-xlarge{:href => '#'}
-            %i.icon-arrow-down.icon-white
-            Good! But before we start creating stuff...
 
     %div#summary.page.hidden{'data-step' => "true",  'data-submit' => "summary-done", 'data-next' => "waiting"}
       %div.page-container
-        %h1 You are nearly there!
+        %h1 You're nearly there!
         %p &nbsp;
         %p &nbsp;
         %p
@@ -90,7 +76,7 @@
         %p
           %b#summary-application-name
 
-        %p Once the dashboard is created you will be able to create and management your environments!
+        %p Once the dashboard is built you will be able to create and management your environments!
         %p &nbsp;
         %p &nbsp;
         %p
@@ -100,7 +86,7 @@
 
     %div#waiting.page.hidden{'data-step' => "true"}
       %div.page-container
-        %h1 Your dashboard is being created
+        %h1 Your dashboard is being built
         %p#please-wait
           Please wait for a moment...
         %p &nbsp;

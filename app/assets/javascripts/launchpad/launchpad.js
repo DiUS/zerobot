@@ -16,7 +16,7 @@ $(document).ready(function () {
             $('#waiting .page-container').append('<p>&nbsp;</p>');
             $('#waiting .page-container').append('<h2><a href="http://' + response.output.aws_dns_name + '" target="_blank">http://' + response.output.aws_dns_name + '</a></h2>');
             $('#waiting .page-container').append('<p>&nbsp;</p>');
-            $('#waiting .page-container').append('<p>We are preparing a second URL for you, we just need a few minutes to register the domain. <br/>This URL will be available soon.</p>');
+            $('#waiting .page-container').append('<p>We are preparing your project URL, we just need a few minutes to register the domain. <br/>This URL will be available soon.</p>');
             $('#waiting .page-container').append('<p><a href="' + response.output.value + '" target="_blank">' + response.output.value + '</a></p>');
             $('#waiting .page-container').append('<p>&nbsp;</p>');
             $('#waiting .page-container').append('<p>Done with this environment? <a id="create-another-link" href="">Create another</a></p>');
@@ -82,12 +82,6 @@ $(document).ready(function () {
             focus: function () {
                 $('#application-name').focus();
             }
-        },
-        {
-            id: '#correspondence',
-            validation: function () {
-                return true;
-            },
         },
         {
             id: '#summary',
