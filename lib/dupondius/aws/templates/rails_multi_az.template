@@ -129,6 +129,7 @@
       "us-west-1"      : { "32" : "ami-11d68a54", "64" : "ami-1bd68a5e", "64HVM" : "NOT_YET_SUPPORTED" },
       "eu-west-1"      : { "32" : "ami-973b06e3", "64" : "ami-953b06e1", "64HVM" : "NOT_YET_SUPPORTED" },
       "ap-southeast-1" : { "32" : "ami-b4b0cae6", "64" : "ami-beb0caec", "64HVM" : "NOT_YET_SUPPORTED" },
+      "ap-southeast-2" : { "32" : "ami-b3990e89", "64" : "ami-bd990e87", "64HVM" : "NOT_YET_SUPPORTED" },
       "ap-northeast-1" : { "32" : "ami-0644f007", "64" : "ami-0a44f00b", "64HVM" : "NOT_YET_SUPPORTED" },
       "sa-east-1"      : { "32" : "ami-3e3be423", "64" : "ami-3c3be421", "64HVM" : "NOT_YET_SUPPORTED" }
     }
@@ -227,12 +228,6 @@
               },
               "/usr/sbin/configure-nginx" : {
                 "source" : "https://s3.amazonaws.com/dupondius_config/configure-nginx",
-                "mode"   : "000744",
-                "owner"  : "root",
-                "group"  : "root"
-              },
-              "/usr/sbin/install-app" : {
-                "source" : "https://s3.amazonaws.com/dupondius_config/install-app",
                 "mode"   : "000744",
                 "owner"  : "root",
                 "group"  : "root"
@@ -382,10 +377,6 @@
           "/usr/sbin/nrsysmond-config --set license_key=$NEW_RELIC_LICENSE_KEY\n",
           "echo \"/usr/sbin/nrsysmond-config --set license_key=\\$NEW_RELIC_LICENSE_KEY\" >> /etc/rc.local\n",
           "echo \"/etc/init.d/newrelic-sysmond restart\" >> /etc/rc.local\n",
-
-          "#install the app\n",
-          "#TODO install s3cmd, fetch aws_install.sh (using environment) from s3 and run as: su - deployer aws_install.sh\n",
-          "/usr/sbin/install-app\n",
 
           "# All is well so signal success\n",
           "/opt/aws/bin/cfn-signal -e 0 -r \"Environment setup complete\" '", { "Ref" : "WaitHandle" }, "'\n"
