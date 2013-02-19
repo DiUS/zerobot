@@ -3,6 +3,7 @@
     "status" : "<%= @project.dashboard.status unless @project.dashboard.nil?%>",
     <% if @project.dashboard && @project.dashboard.status == :running  %>
       "output" : {
+        "aws_dns_name" : "<%= @project.dashboard.dns_name%>",
         "key" : "url",
         "value" : "<%= @project.dashboard_url%>"
       },
