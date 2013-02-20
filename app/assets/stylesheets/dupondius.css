@@ -219,6 +219,11 @@ p.dupondius-blurb {
     min-height: 630px;
   }
 
+  .home-page {
+    background: transparent url('dius_project.png') no-repeat 2% 98%;
+    background-size: 200px;
+  }
+
   .home-page, .page {
     height: 100%;
     z-index: 20;
