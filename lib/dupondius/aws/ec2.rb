@@ -40,6 +40,7 @@ module Dupondius; module Aws; module Ec2
         0.0
       end
     end
+
     def as_json options = {}
       result = {}
       AWS.memoize do
