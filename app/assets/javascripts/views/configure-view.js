@@ -2,11 +2,10 @@ define([
     'backbone',
     'collections/available',
     'collections/instances',
-    'collections/cloudformation',
     'views/widget-view',
     'views/environment-view',
     'text!templates/environments.html.haml'
-], function (Backbone, AvailableCollection, InstancesCollection, CloudFormationCollection, WidgetView, EnvironmentView, template) {
+], function (Backbone, AvailableCollection, InstancesCollection, WidgetView, EnvironmentView, template) {
     return Backbone.SuperView.extend({
 
         className: 'environments',
@@ -32,7 +31,6 @@ define([
             this.views = [];
             this.availableCollection = new AvailableCollection();
             this.collection = new InstancesCollection();
-            this.stasks = new CloudFormationCollection()
 
             this.bindTo(this.availableCollection, 'reset', function () {
                 this.$('.message').remove();
