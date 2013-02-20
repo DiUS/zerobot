@@ -40,6 +40,7 @@ module Dupondius; module Aws; module Ec2
         0.0
       end
     end
+
     def as_json options = {}
       result = {}
       AWS.memoize do
@@ -49,6 +50,7 @@ module Dupondius; module Aws; module Ec2
           result
         end
       end
+      result[:stack_status] = Dupondius::Aws::CloudFormation::Stack.find(tags.to_h["aws:cloudformation:stack-name"]).status
       result
     end
   end

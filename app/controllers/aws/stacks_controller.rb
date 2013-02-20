@@ -7,6 +7,14 @@ class Aws::StacksController < ApplicationController
     render :json => {:error => error.message}, :status => 400
   end
 
+  rescue_from 'AWS::CloudFormation::Errors::LimitExceededException' do |error|
+    render :json => {:error => error.message}, :status => 400    
+  end
+
+  rescue_from 'AWS::CloudFormation::Errors::AlreadyExistsException' do |error|
+    render :json => {:error => error.message}, :status => 400    
+  end
+
   def index
     respond_with(Dupondius::Aws::CloudFormation.summaries)
   end
@@ -33,11 +41,12 @@ class Aws::StacksController < ApplicationController
     params[:parameters].delete(:EnvironmentName) if params[:parameters][:EnvironmentName] == 'ci'
     # temporarily limiting aws ec2 instance size to m1.small 
     params[:parameters][:InstanceType] = "m1.small"
+    params[:parameters][:DBInstanceClass] = "db.m1.small" if !params[:parameters][:DBInstanceClass].nil?
     result = Dupondius::Aws::CloudFormation::Stack.create(params[:templateName],
                                                      full_name,
                                                      Dupondius.config.project_name,
                                                      params[:parameters])
-    
+
     render :json => {:success => true}, :status => 200
   end
 
