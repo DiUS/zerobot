@@ -290,8 +290,8 @@
 
           "# Use Ruby 1.9\n",
           "rm /usr/bin/ruby\n",
-          "ln -s /usr/bin/ruby1.9 /usr/bin/ruby\n",
-          "ln -s /usr/bin/gem1.9 /usr/bin/gem\n",
+          "ln -sf /usr/bin/ruby1.9 /usr/bin/ruby\n",
+          "ln -sf /usr/bin/gem1.9 /usr/bin/gem\n",
           "gem install bundler --no-rdoc --no-ri\n",
 
           "# Give the deployer user login rights\n",
