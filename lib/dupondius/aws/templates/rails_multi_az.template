@@ -366,7 +366,7 @@
           "/usr/sbin/update-config\n",
 
           "# Configure nginx\n",
-          "/usr/sbin/configure-nginx rails\n",
+          "/usr/sbin/configure-nginx '", { "Ref" : "ProjectName" }, "'\n",
           "/etc/init.d/nginx restart\n",
 
           "#add new relic server monitoring\n",
